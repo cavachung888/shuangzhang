@@ -1,0 +1,217 @@
+<?php
+/**
+ * Copyright (c) Since 2024 InnoCMS - All Rights Reserved
+ *
+ * @link       https://www.innocms.com
+ * @author     InnoCMS <team@innoshop.com>
+ * @license    https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ */
+
+namespace InnoCMS\Common\Repositories;
+
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use InnoCMS\Common\Handlers\TranslationHandler;
+use InnoCMS\Common\Models\Page;
+
+class PageRepo extends BaseRepo
+{
+    /**
+     * @return array
+     */
+    public static function getSearchFieldOptions(): array
+    {
+        return [
+            ['value' => '', 'label' => trans('panel/common.all_fields')],
+            ['value' => 'slug', 'label' => trans('panel/common.slug')],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getFilterButtonOptions(): array
+    {
+        return [
+            [
+                'name'    => 'active',
+                'label'   => trans('panel/common.status'),
+                'type'    => 'button',
+                'options' => [
+                    ['value' => '', 'label' => trans('panel/common.all')],
+                    ['value' => '1', 'label' => trans('panel/common.active')],
+                    ['value' => '0', 'label' => trans('panel/common.inactive')],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param  $filters
+     * @return LengthAwarePaginator
+     * @throws \Exception
+     */
+    public function list($filters = []): LengthAwarePaginator
+    {
+        return $this->builder($filters)->paginate();
+    }
+
+    /**
+     * Get page builder.
+     *
+     * @param  array  $filters
+     * @return Builder
+     */
+    public function builder(array $filters = []): Builder
+    {
+        $builder = Page::query()->with(['translation', 'translations']);
+
+        $filters = array_merge($this->filters, $filters);
+
+        $searchField = $filters['search_field'] ?? '';
+        $keyword     = $filters['keyword'] ?? '';
+        if ($keyword) {
+            if ($searchField === 'slug') {
+                $builder->where('slug', 'like', "%$keyword%");
+            } else {
+                $builder->where('slug', 'like', "%$keyword%");
+            }
+        }
+
+        $slug = $filters['slug'] ?? '';
+        if ($slug) {
+            $builder->where('slug', 'like', "%$slug%");
+        }
+
+        if (isset($filters['active'])) {
+            $builder->where('active', (bool) $filters['active']);
+        }
+
+        return $builder;
+    }
+
+    /**
+     * Normalize + filter translations: drop optional-locale rows left blank and
+     * cast nulls to '' (shared handler, same path as Category/Product).
+     *
+     * @param  array  $translations
+     * @return array
+     */
+    private function handleTranslations(array $translations): array
+    {
+        if (empty($translations)) {
+            return [];
+        }
+
+        $fieldMap = [
+            'title' => ['content', 'meta_title', 'meta_keywords', 'meta_description'],
+        ];
+
+        return TranslationHandler::process($translations, $fieldMap);
+    }
+
+    /**
+     * @param  $data
+     * @return Page
+     * @throws \Exception|\Throwable
+     */
+    public function create($data): Page
+    {
+        $item = new Page($data);
+        $item->saveOrFail();
+        $item->translations()->createMany($this->handleTranslations($data['translations'] ?? []));
+
+        return $item;
+    }
+
+    /**
+     * @param  $item
+     * @param  $data
+     * @return mixed
+     */
+    public function update($item, $data): mixed
+    {
+        $item->fill($data);
+        $item->saveOrFail();
+        $translations = $this->handleTranslations($data['translations'] ?? []);
+        if ($translations) {
+            $item->translations()->delete();
+            $item->translations()->createMany($translations);
+        }
+
+        return $item;
+    }
+
+    /**
+     * @param  Page  $page
+     * @param  array  $data
+     * @return mixed
+     */
+    public function patch(Page $page, array $data): mixed
+    {
+        $page->loadMissing(['translations']);
+
+        $merged = [
+            'slug'            => $page->slug,
+            'viewed'          => $page->viewed,
+            'position'        => $page->position,
+            'show_breadcrumb' => $page->show_breadcrumb,
+            'active'          => $page->active,
+            'translations'    => [],
+        ];
+
+        foreach ($page->translations as $translation) {
+            $merged['translations'][$translation->locale] = $translation->only($translation->getFillable());
+        }
+
+        foreach (['slug', 'viewed', 'position', 'show_breadcrumb', 'active'] as $key) {
+            if (array_key_exists($key, $data)) {
+                $merged[$key] = $data[$key];
+            }
+        }
+
+        if (isset($data['translations']) && is_array($data['translations'])) {
+            foreach ($data['translations'] as $locale => $fields) {
+                if (! is_array($fields)) {
+                    continue;
+                }
+                $merged['translations'][$locale] = array_merge(
+                    $merged['translations'][$locale] ?? ['locale' => $locale],
+                    $fields
+                );
+            }
+        }
+
+        return $this->update($page, $merged);
+    }
+
+    /**
+     * @param  $item
+     * @return void
+     */
+    public function destroy($item): void
+    {
+        $item->translations()->delete();
+        $item->delete();
+    }
+
+    /**
+     * Fuzzy search pages by translated title for autocomplete picker.
+     *
+     * @param  $keyword
+     * @param  int  $limit
+     * @return mixed
+     */
+    public function autocomplete($keyword, int $limit = 10): mixed
+    {
+        $keyword = trim((string) $keyword);
+        $builder = Page::query()->with(['translation']);
+        if ($keyword !== '') {
+            $builder->whereHas('translation', function ($query) use ($keyword) {
+                $query->where('title', 'like', "%{$keyword}%");
+            });
+        }
+
+        return $builder->orderByDesc('id')->limit($limit)->get();
+    }
+}

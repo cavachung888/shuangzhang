@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node build.js",
+    "build": "node build.js",
+    "prod": "node build.js",
+    "production": "node build.js"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "axios": "^1.6.4",
+    "jquery": "^3.7.1",
+    "sass": "^1.75.0",
+    "sass-embedded": "^1.75.0",
+    "vite": "^6.4.2"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "codemirror": "^5.65.16",
+    "flatpickr": "^4.6.13",
+    "notyf": "^3.10.0"
+  }
+}

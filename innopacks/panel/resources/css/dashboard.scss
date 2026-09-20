@@ -1,0 +1,179 @@
+body.page-home {
+  .dashboard-top-card {
+    .dashboard-item {
+      background: #fff;
+      border: 1px solid $border;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      cursor: default;
+
+      &:hover {
+        border-color: $primary-border;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
+      }
+
+      .left {
+        .quantity {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: $text-heading;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+          font-variant-numeric: tabular-nums;
+        }
+
+        .title {
+          font-size: 0.8125rem;
+          color: $text-light;
+          font-weight: 400;
+          margin-top: 4px;
+        }
+      }
+
+      .right {
+        .icon-wrap {
+          width: 42px;
+          height: 42px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
+
+          .icon {
+            font-size: 1.125rem;
+          }
+        }
+      }
+    }
+
+    .col-6 {
+      &:nth-child(1) .icon-wrap {
+        background-color: $primary-bg;
+        .icon { color: $primary; }
+      }
+
+      &:nth-child(2) .icon-wrap {
+        background-color: $success-bg;
+        .icon { color: $success; }
+      }
+
+      &:nth-child(3) .icon-wrap {
+        background-color: $warning-bg;
+        .icon { color: $warning; }
+      }
+
+      &:nth-child(4) .icon-wrap {
+        background-color: $danger-bg;
+        .icon { color: $danger; }
+      }
+    }
+  }
+
+  .dashboard-chart-card,
+  .dashboard-top-card-list {
+    min-height: 400px;
+    height: 100%;
+  }
+
+  .dashboard-chart-card {
+    .card-body {
+      padding: 1rem 1.25rem 1.25rem;
+    }
+  }
+
+  .dashboard-top-card-list {
+    .card-body {
+      padding: 0.5rem 0;
+    }
+
+    .top-articles-list {
+      .article-row {
+        padding: 0.75rem 1.25rem;
+        transition: background-color 0.15s ease;
+
+        &:hover {
+          background-color: $content-bg;
+
+          .article-title {
+            color: $primary;
+          }
+        }
+
+        .rank {
+          width: 24px;
+          flex-shrink: 0;
+
+          .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+          }
+
+          .rank-1 {
+            background-color: $rank-gold-bg;
+            color: $rank-gold-text;
+          }
+
+          .rank-2 {
+            background-color: $rank-silver-bg;
+            color: $rank-silver-text;
+          }
+
+          .rank-3 {
+            background-color: $rank-bronze-bg;
+            color: $rank-bronze-text;
+          }
+
+          .rank-default {
+            background-color: $rank-silver-bg;
+            color: $text-light;
+          }
+        }
+
+        .article-thumb {
+          width: 36px;
+          height: 36px;
+          flex-shrink: 0;
+          margin-left: 12px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .article-info {
+          min-width: 0;
+
+          .article-title {
+            font-size: 0.875rem;
+            color: $text-dark;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: color 0.15s ease;
+          }
+        }
+
+        .article-views {
+          font-size: 0.8125rem;
+          color: $text-light;
+          white-space: nowrap;
+          flex-shrink: 0;
+
+          i {
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright (c) Since 2024 InnoCMS - All Rights Reserved
+ *
+ * @link       https://www.innocms.com
+ * @author     InnoShop <team@innoshop.com>
+ * @license    https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ */
+
+return [
+    'order_quantity'    => 'Orders',
+    'product_quantity'  => 'Products',
+    'customer_quantity' => 'Customers',
+    'order_amount'      => 'Order Amount',
+    'ranking'           => 'Ranking',
+    'product'           => 'Product',
+    'sales'             => 'Sales',
+    'order_trends'      => 'Order Trends',
+    'article_trends'    => 'Article Trends',
+    'top_products'      => 'Bestsellers',
+    'top_articles'      => 'Top Articles',
+    'frontend'          => 'Frontend',
+    'profile'           => 'Profile',
+    'sign_out'          => 'Log out',
+    'today_pv'          => "Today's PV",
+    'today_uv'          => "Today's UV",
+    'today_ip'          => "Today's IP",
+    'article_quantity'  => 'Articles',
+];

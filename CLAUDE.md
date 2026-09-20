@@ -1,0 +1,265 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+InnoCMS is a lightweight enterprise CMS built on Laravel 11 (PHP 8.2+). It uses a modular "innopacks" architecture with a hook-based plugin system for extensibility.
+
+## Commands
+
+```bash
+# Install dependencies
+composer install
+npm install
+
+# Database setup
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+php artisan storage:link
+
+# Frontend assets (Laravel Mix)
+npm run dev      # Development build with watch
+npm run prod     # Production build
+
+# Testing
+php artisan test
+
+# Code formatting (Laravel Pint)
+composer pint
+```
+
+## Code Style
+
+All PHP class files in `innopacks/` MUST have the following copyright header after `<?php`:
+
+```php
+/**
+ * Copyright (c) Since 2024 InnoCMS - All Rights Reserved
+ *
+ * @link       https://www.innocms.com
+ * @author     InnoCMS <team@innoshop.com>
+ * @license    https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ */
+```
+
+Blade template files (`.blade.php`) do NOT need this header.
+
+`bootstrap/providers.php` must return fully qualified class names (`InnoCMS\Mcp\McpServiceProvider::class`) directly — do NOT add `use` imports at the top. `pint.json` already excludes `bootstrap/` (and `app`, `config`, `resources`, `themes`); never pass files from those directories explicitly to pint, or the exclusion is bypassed.
+
+## Theme Development
+
+- **完整主题开发指南见 [`docs/theme-development.md`](docs/theme-development.md)**（结构 / 视图覆盖 / 辅助函数 / 校验发布）。
+- 主题 = 独立 git 仓库放 `themes/{code}/`（不 fork core），托管在 Gitea `cmsthemes` 组织。
+- 激活：`SettingRepo::updateSystemValue('theme', code)`；视图同名覆盖 front 默认视图。
+- `themes/*` 不入 innocms 主仓库 git（各主题自带 .git），参考 `themes/aurora`、`themes/gallery`。
+
+## Git Workflow
+
+### Commit Rules
+- Do NOT add `Co-Authored-By: Claude` or any AI attribution trailers
+- Message format: `type: short description`
+- Types: feat, fix, refactor, docs, style, test, chore
+- Run `composer pint` before committing
+- Only stage files related to the current change; leave unrelated work-in-progress (other modified/untracked files) out of the commit
+
+## Architecture
+
+### Core Packages (innopacks/)
+
+The system is divided into 5 packages that will become independent Composer packages after v1.0:
+
+- **common/** - Shared models (Article, Catalog, Page, Tag, Locale, Setting, Admin), repositories, services, middleware, and helper functions
+- **panel/** - Admin panel backend (controllers, views, routes at `/panel`)
+- **front/** - Public website frontend (controllers, views, routes)
+- **install/** - Installation wizard
+- **plugin/** - Plugin system core (PluginManager, Blade directives, hook system)
+
+**CRITICAL:** Do not directly edit files in `/innopacks`. All customization should be done via plugins.
+
+### Plugin System
+
+Plugins extend functionality using hooks. Located in `/plugins/`.
+
+**Plugin Structure:**
+```
+plugins/PluginName/
+├── config.json       # Required: code, name, description, version, author
+├── Boot.php          # Entry point with init() method
+├── Controllers/
+├── Models/
+├── Routes/
+│   ├── panel.php     # Admin routes
+│   └── front.php     # Frontend routes
+├── Views/
+├── Lang/
+├── Migrations/
+└── Static/
+```
+
+**Hook Functions (from innopacks/plugin/helpers.php):**
+```php
+// Action hooks (no return value)
+fire_hook_action($hookName, $request);
+listen_hook_action($hookName, $callback);
+
+// Filter hooks (transform data)
+fire_hook_filter($hookName, $data);
+listen_hook_filter($hookName, $callback);
+
+// Blade hooks (inject/modify views)
+listen_blade_insert($hookName, $callback);
+listen_blade_update($hookName, $callback);
+```
+
+**Blade Directives:**
+```blade
+@hookinsert('hook_name')           <!-- Insert content at hook point -->
+@hookupdate('hook_name')...@endhookupdate  <!-- Wrap content with hook -->
+```
+
+**Common Hook Points:**
+- `component.sidebar.plugin.routes` - Add items to admin sidebar
+- `layouts.header.bottom` - Header extensions
+- `layouts.footer.top` - Footer extensions
+
+### Key Helper Functions
+
+```php
+// Settings
+setting($key)              // Get setting value
+system_setting($key)       // Get system setting
+
+// Panel (innopacks/panel/helpers.php)
+panel_route($name)         // Generate panel route URL
+current_admin()            // Get current admin user
+is_admin()                 // Check if in admin panel
+
+// Plugin
+plugin($code)              // Get plugin instance
+plugin_setting($code, $key) // Get plugin setting
+
+// Other
+installed()                // Check if system is installed
+locales()                  // Get available locales
+front_route($name)         // Generate frontend route URL
+image_resize($image, $w, $h) // Resize image
+```
+
+### Namespaces
+
+- `InnoCMS\Common\` - Common package (innopacks/common/src/)
+- `InnoCMS\Panel\` - Panel package (innopacks/panel/src/)
+- `InnoCMS\Front\` - Front package (innopacks/front/src/)
+- `InnoShop\Plugin\` - Plugin core (innopacks/plugin/src/)
+- `Plugin\` - Plugins directory (plugins/)
+
+### View Namespacing
+
+- `common::view-name` - Common views
+- `panel::view-name` - Panel views
+- `front::view-name` - Front views
+- `PluginCode::view-name` - Plugin views
+
+## Secondary Development
+
+### Theme & demo images (picsum.photos)
+
+Whenever the codebase needs **placeholder or illustrative images** — theme Blade examples, hero or card backgrounds, demo seeders, CMS sample content, `data-bg-image`, documentation screenshots in templates, and similar — use **[Lorem Picsum](https://picsum.photos/)** rather than ad-hoc file paths, other placeholder hosts, or random external CDNs.
+
+**URL pattern (stable per seed, good for layout work):**
+
+```text
+https://picsum.photos/seed/{unique-seed}/{width}/{height}
+```
+
+Example: `https://picsum.photos/seed/funnlink-p1/1400/900`
+
+**Exceptions:** Keep real bundled files for **brand identity** where appropriate (e.g. `theme_asset('images/logo.png')`, favicon from settings). Those are not “placeholder” imagery. Everything else that is decorative or demo-only should default to picsum as above.
+
+### Frontend Customization
+```bash
+php artisan inno:publish-theme
+# Creates templates in /resources/views/vendor
+```
+
+### Backend Customization
+```bash
+php artisan vendor:publish --provider="InnoCMS\Panel\PanelServiceProvider" --tag=views
+# Creates templates in /resources/views/vendor
+```
+
+### Plugin Development
+
+All new features should be implemented as plugins. See `/plugins/PartnerLink` for a complete example.
+
+Example Boot.php:
+```php
+<?php
+namespace Plugin\YourPlugin;
+
+class Boot
+{
+    public function init(): void
+    {
+        // Add sidebar menu
+        listen_hook_filter('component.sidebar.plugin.routes', function ($data) {
+            $data[] = ['route' => 'your_plugin.index', 'title' => 'Your Plugin'];
+            return $data;
+        });
+
+        // Insert content at blade hook
+        listen_blade_insert('layouts.footer.top', function () {
+            return view('YourPluginName::component');
+        });
+    }
+}
+```
+
+## Database Models
+
+Models with translations use separate tables (e.g., `article_translations`). The translation relationship is handled in the model and repositories.
+
+Key models in `innopacks/common/src/Models/`:
+- `Article` - Blog articles with translations
+- `Catalog` - Categories with translations
+- `Page` - Static pages with translations
+- `Tag` - Tags with translations
+- `Locale` - Available languages
+- `Setting` - System settings
+- `Admin` - Administrator users
+
+## Panel Frontend (axios)
+
+Panel 的 `bootstrap.js` (`innopacks/panel/resources/js/bootstrap.js`) 已全局配置 axios，插件中直接使用 `axios` 即可，**无需手动设置 CSRF token 或 XMLHttpRequest header**。
+
+**关键约定：** axios 响应拦截器已做 `return response.data`，所以 `.then(res => {})` 中 `res` 直接就是 response data，**不要**再取 `res.data`。
+
+```js
+// 正确写法
+axios.post(url).then(data => {
+    if (data.success) { ... }
+    inno.msg(data.message);
+});
+
+// 错误写法 — res.data 会是 undefined
+axios.post(url).then(res => {
+    res.data.success  // undefined!
+});
+```
+
+其他内置行为（无需手动处理）：
+- 自动设置 CSRF token (`X-CSRF-TOKEN`)
+- 自动设置 `X-Requested-With: XMLHttpRequest`
+- 请求时自动显示 loading 层 (`layer.load`)
+- 响应时自动关闭 loading 层
+- `inno.msg(text)` — 显示 toast 提示（支持字符串参数）
+- `inno.alert({msg, type})` — 显示顶部 alert 横幅
+
+## Middleware Stack
+
+- `EventActionHook` - Fires action hooks for controller methods
+- `ContentFilterHook` - Applies filter hooks to response content
+- `AdminAuthenticate` - Admin authentication (panel only)
+- `GlobalDataMiddleware` - Shares global frontend data

@@ -1,0 +1,3323 @@
+// Shunchung 双张新材 — 主页样式
+// 现代风：红橙渐变 + 多色装饰 + 玻璃感 + 渐变文字
+
+body.page-home {
+  background: #fff;
+}
+
+// ===== 通用工具类 =====
+
+// 渐变文字
+.gradient-text {
+  background: linear-gradient(135deg, $primary 0%, $primary-2 50%, $accent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, $color-blue 0%, $color-blue-light 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.gradient-text-green {
+  background: linear-gradient(135deg, $color-green 0%, $color-green-light 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.gradient-text-purple {
+  background: linear-gradient(135deg, $color-purple 0%, $color-purple-light 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.gradient-text-yellow {
+  background: linear-gradient(135deg, $color-yellow 0%, $color-yellow-light 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+// 渐变背景
+.gradient-primary {
+  background: linear-gradient(135deg, $primary 0%, $primary-2 100%);
+}
+.gradient-warm {
+  background: linear-gradient(135deg, $primary 0%, $accent 50%, $accent-2 100%);
+}
+.gradient-cool {
+  background: linear-gradient(135deg, $color-blue 0%, $color-cyan 100%);
+}
+
+// 玻璃感
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+// ===== 1. Hero（黑底+红橙光晕+渐变文字标题） =====
+.sc-hero {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(232, 70, 24, .35) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(255, 138, 0, .25) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 50%, rgba(183, 58, 33, .2) 0%, transparent 60%),
+    #0a0a0a;
+  color: #fff;
+  padding: 9rem 0 6rem;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 40px;
+    align-items: center;
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__left { min-width: 0; }
+
+  &__right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 460px;
+  }
+
+  &__3d {
+    width: 100%;
+    height: 460px;
+    max-width: 560px;
+    --poster-color: transparent;
+    --progress-bar-color: rgba(232, 70, 24, .8);
+  }
+
+  &__3d-hint {
+    margin-top: 14px;
+    font-size: .82rem;
+    letter-spacing: .12em;
+    color: rgba(255, 255, 255, .55);
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-size: 3.6rem;
+    font-weight: 800;
+    line-height: 1.15;
+    max-width: 820px;
+    margin-bottom: 1.4rem;
+    letter-spacing: -.02em;
+
+    @media (max-width: 768px) { font-size: 2.1rem; }
+  }
+
+  &__title-accent {
+    background: linear-gradient(135deg, #e84618 0%, #FF8A00 50%, #FFB800 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+
+  &__sub {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,.85);
+    max-width: 720px;
+    margin-bottom: 2.5rem;
+    @media (max-width: 768px) { font-size: .95rem; }
+  }
+
+  &__cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+
+    .btn { padding: 14px 32px; font-weight: 700; letter-spacing: .04em; border-radius: 30px; }
+    .btn-primary {
+      background: linear-gradient(135deg, $primary 0%, $primary-2 100%);
+      border: 0;
+      box-shadow: 0 10px 26px rgba(232, 70, 24, .35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(232, 70, 24, .45); }
+    .btn-outline-light { border-width: 2px; }
+  }
+
+  &__chips {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    .chip {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-size: .85rem;
+      color: rgba(255,255,255,.92);
+    }
+  }
+}
+
+// ===== 2. 数据卡 6 块（多色） =====
+.sc-stats {
+  background: #fff;
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid #f0f0f0;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+    @media (max-width: 992px) { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 576px) { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  &__card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 18px;
+    padding: 1.6rem 1.2rem;
+    text-align: center;
+    transition: all .25s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--stat-color, #{$primary});
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .08);
+    }
+
+    // 6 种色（循环用 :nth-child）
+    &:nth-child(1) { --stat-color: #{$primary}; }
+    &:nth-child(2) { --stat-color: #{$color-blue}; }
+    &:nth-child(3) { --stat-color: #{$color-green}; }
+    &:nth-child(4) { --stat-color: #{$color-purple}; }
+    &:nth-child(5) { --stat-color: #{$color-yellow}; }
+    &:nth-child(6) { --stat-color: #{$color-pink}; }
+  }
+
+  &__num {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--stat-color, #{$primary});
+    margin-bottom: .5rem;
+    @media (max-width: 768px) { font-size: 2rem; }
+  }
+
+  &__plus {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--stat-color, #{$primary});
+  }
+
+  &__label {
+    font-size: .82rem;
+    font-weight: 600;
+    color: $text-muted;
+    letter-spacing: .04em;
+  }
+}
+
+// ===== 3. 板块通用样式 =====
+.sc-section {
+  padding: 5rem 0;
+  @media (max-width: 768px) { padding: 3rem 0; }
+  &--alt { background: linear-gradient(180deg, #FAFAFA 0%, #F0F2F5 100%); }
+  &--dark {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: #fff;
+    .module-title { color: #fff; }
+    .module-sub-title { color: rgba(255,255,255,.7); }
+  }
+}
+
+.module-title {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  position: relative;
+  color: $text-strong;
+  letter-spacing: -.01em;
+  @media (max-width: 768px) { font-size: 1.6rem; }
+}
+
+.module-sub-title {
+  text-align: center;
+  font-size: 1.05rem;
+  color: $text-muted;
+  margin: 0 auto 3.2rem;
+  line-height: 1.7;
+  max-width: 760px;
+  @media (max-width: 768px) { font-size: .9rem; margin-bottom: 2rem; }
+}
+
+// ===== 4. 解决方案 / 产品卡 =====
+.sc-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 20px;
+  padding: 2rem 1.5rem 1.5rem;
+  height: 100%;
+  text-decoration: none;
+  color: $text-strong;
+  position: relative;
+  overflow: hidden;
+  transition: all .3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: var(--card-color, #{$primary});
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 44px rgba(0, 0, 0, .1);
+    border-color: transparent;
+    .sc-card__icon { transform: scale(1.08) rotate(-3deg); }
+    .sc-card__more { color: var(--card-color, #{$primary}); gap: 8px; }
+    &::before { transform: scaleX(1); }
+  }
+
+  &__icon {
+    width: 64px; height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--card-color, #{$primary}) 0%, var(--card-color-light, #{$primary-2}) 100%);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem;
+    margin-bottom: 1.3rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+    transition: all .3s ease;
+  }
+
+  &__title {
+    font-size: 1.1rem; font-weight: 700;
+    margin-bottom: .7rem; line-height: 1.4;
+  }
+
+  &__desc {
+    font-size: .88rem; color: $text-muted;
+    line-height: 1.7;
+    flex: 1; margin-bottom: 1.2rem;
+  }
+
+  &__more {
+    color: $text-muted; font-weight: 600; font-size: .88rem;
+    display: inline-flex; align-items: center; gap: 4px;
+    transition: all .2s;
+  }
+}
+
+// 6 大色系（用在 --card-color 变量上）
+.sc-card--red    { --card-color: #{$primary};      --card-color-light: #{$primary-2}; }
+.sc-card--blue   { --card-color: #{$color-blue};  --card-color-light: #{$color-blue-light}; }
+.sc-card--green  { --card-color: #{$color-green}; --card-color-light: #{$color-green-light}; }
+.sc-card--purple { --card-color: #{$color-purple};--card-color-light: #{$color-purple-light}; }
+.sc-card--yellow { --card-color: #{$color-yellow};--card-color-light: #{$color-yellow-light}; }
+.sc-card--pink   { --card-color: #{$color-pink};  --card-color-light: #f472b6; }
+.sc-card--orange { --card-color: #{$accent};      --card-color-light: #{$accent-2}; }
+
+// ===== 5. 技术工艺时间轴 =====
+.sc-tech {
+  display: grid; gap: 16px;
+  &__row {
+    display: flex; align-items: stretch; gap: 16px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem;
+    transition: all .3s ease;
+    position: relative; overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 5px;
+      background: var(--row-color, #{$primary});
+    }
+
+    &:hover {
+      transform: translateX(6px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .08);
+    }
+  }
+
+  &__num {
+    width: 48px; height: 48px;
+    flex: 0 0 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--row-color, #{$primary}) 0%, var(--row-color-light, #{$primary-2}) 100%);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 800;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .12);
+  }
+
+  &__body { flex: 1; }
+  &__title { font-size: 1.05rem; font-weight: 700; margin-bottom: .35rem; }
+  &__desc { font-size: .88rem; color: $text-muted; line-height: 1.7; }
+}
+
+// 5 种技术色
+.sc-tech__row--red    { --row-color: #{$primary};      --row-color-light: #{$primary-2}; }
+.sc-tech__row--blue   { --row-color: #{$color-blue};  --row-color-light: #{$color-blue-light}; }
+.sc-tech__row--green  { --row-color: #{$color-green}; --row-color-light: #{$color-green-light}; }
+.sc-tech__row--purple { --row-color: #{$color-purple};--row-color-light: #{$color-purple-light}; }
+.sc-tech__row--yellow { --row-color: #{$color-yellow};--row-color-light: #{$color-yellow-light}; }
+
+// ===== 6. 关于我们：双地址 + CEO =====
+.sc-about {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px;
+  align-items: stretch;
+  @media (max-width: 992px) { grid-template-columns: 1fr; }
+
+  &__visual {
+    background: linear-gradient(135deg, $primary 0%, $primary-2 50%, $accent 100%);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    color: #fff;
+    position: relative; overflow: hidden;
+
+    &::before {
+      content: ''; position: absolute;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .12);
+      top: -100px; right: -100px;
+    }
+    &::after {
+      content: ''; position: absolute;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .08);
+      bottom: -60px; left: 30%;
+    }
+  }
+
+  &__ceo-name {
+    font-size: 1.6rem; font-weight: 800;
+    margin-bottom: .3rem; position: relative; z-index: 2;
+  }
+  &__ceo-title {
+    font-size: 1rem; color: rgba(255,255,255,.85);
+    position: relative; z-index: 2;
+    margin-bottom: 1.5rem;
+  }
+  &__quote {
+    font-size: 1.05rem; line-height: 1.8;
+    color: rgba(255,255,255,.95);
+    position: relative; z-index: 2;
+    font-style: italic;
+  }
+
+  &__info {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+
+  &__addr {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem;
+    display: flex; align-items: flex-start; gap: 14px;
+    transition: all .25s;
+
+    &:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,.06); }
+
+    i {
+      font-size: 1.4rem;
+      color: $primary;
+      margin-top: 2px;
+      flex: 0 0 auto;
+    }
+    strong { display: block; font-size: .9rem; color: $primary; margin-bottom: .25rem; letter-spacing: .04em; }
+    span { font-size: .92rem; color: $text-body; line-height: 1.6; }
+  }
+}
+
+// ===== 7. CTA 联系条 =====
+.sc-cta {
+  background: linear-gradient(135deg, $primary 0%, $primary-2 100%);
+  color: #fff;
+  padding: 5rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: ''; position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .08);
+    top: -200px; left: -100px;
+  }
+  &::after {
+    content: ''; position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .06);
+    bottom: -150px; right: -80px;
+  }
+
+  &__inner { position: relative; z-index: 2; }
+
+  h2 {
+    font-size: 2.4rem; font-weight: 800;
+    margin-bottom: 1rem; letter-spacing: -.01em;
+    @media (max-width: 768px) { font-size: 1.6rem; }
+  }
+  p {
+    color: rgba(255, 255, 255, .92);
+    max-width: 640px; margin: 0 auto 2rem;
+    font-size: 1.05rem;
+  }
+  .btn-light {
+    background: #fff; color: $primary;
+    padding: 14px 36px; font-weight: 700;
+    border-radius: 30px; letter-spacing: .04em;
+    border: 0;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .15);
+  }
+  .btn-light:hover {
+    background: $accent; color: #fff;
+    transform: translateY(-2px);
+  }
+}
+
+// ===== 8. 客户 logo 墙 =====
+.sc-clients {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  @media (max-width: 992px) { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 576px) { grid-template-columns: repeat(2, 1fr); }
+
+  &__item {
+    background: #fff;
+    border: 1px dashed #d0d0d0;
+    border-radius: 12px;
+    aspect-ratio: 16 / 9;
+    display: flex; align-items: center; justify-content: center;
+    color: #aaa; font-size: .8rem; font-weight: 600;
+    transition: all .2s;
+    &:hover { border-color: $primary; color: $primary; }
+  }
+}
+
+// ===== 9. Header：白色悬浮胶囊，首页与滚动后保持一致 =====
+body.page-home .header-topbar { display: none !important; }
+
+.shunchung-header {
+  .header-box {
+    width: calc(100% - 64px);
+    max-width: 1080px;
+    height: 64px;
+    margin: 18px auto 0;
+    padding: 0;
+    overflow: visible;
+    background: rgba(255, 255, 255, .88);
+    backdrop-filter: blur(14px) saturate(125%);
+    -webkit-backdrop-filter: blur(14px) saturate(125%);
+    border: 1px solid rgba(255, 255, 255, .78);
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(20, 14, 8, .18), 0 1px 0 rgba(255, 255, 255, .85) inset;
+  }
+
+  .header-box > .container {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    padding: 0 20px 0 28px;
+  }
+
+  .header-box .logo {
+    width: auto !important;
+    max-width: none !important;
+    flex: 0 0 auto;
+    margin-right: 22px;
+  }
+
+  .shunchung-logo__img {
+    height: 43px;
+    width: auto;
+  }
+
+  .header-menu,
+  .navbar { height: 100%; }
+  .navbar { padding: 0; }
+  .navbar-nav { height: 100%; align-items: center; }
+
+  .navbar .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: .55rem .85rem;
+    margin: 0 .12rem;
+    color: #25262a !important;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-decoration: none !important;
+    transition: color .2s ease;
+
+    &::after { display: none !important; }
+    &:hover,
+    &:focus-visible,
+    &.active {
+      color: $primary !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+
+  .has-mega .mega-panel {
+    top: calc(100% + 10px);
+    left: 50%;
+    min-width: 198px;
+    padding: 8px 0;
+    background: #fff;
+    border: 1px solid rgba(20, 14, 8, .06);
+    border-radius: 9px;
+    box-shadow: 0 12px 28px rgba(20, 14, 8, .16);
+    transform: translate(-50%, -4px);
+
+    .mega-panel__item {
+      padding: 9px 16px;
+      color: #555;
+      font-size: .86rem;
+      transition: color .18s ease, background-color .18s ease;
+      &:hover { color: $primary; background: rgba(232, 70, 24, .06); padding-left: 16px; }
+    }
+  }
+
+  .has-mega:hover > .mega-panel,
+  .has-mega:focus-within > .mega-panel,
+  .has-mega.is-open > .mega-panel {
+    transform: translate(-50%, 0);
+  }
+
+  .has-mega__caret {
+    font-size: .68em;
+    opacity: .6;
+    transition: transform .2s ease;
+  }
+
+  .header-menu .btn.btn-accent {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #e84618 0%, #b73a21 100%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 7px 18px rgba(183, 58, 33, .25);
+    transition: filter .2s ease, transform .2s ease;
+    &:hover { color: #fff; filter: brightness(1.04); transform: translateY(-1px); }
+  }
+
+  #mobile-menu-offcanvas {
+    background: #fff;
+    .offcanvas-header { background: $primary; }
+    .mb-logo .shunchung-logo__img { height: 36px; }
+  }
+}
+
+@media (max-width: 991.98px) {
+  .shunchung-header .header-box {
+    width: calc(100% - 24px);
+    height: 64px;
+    margin-top: 12px;
+  }
+  .shunchung-header .header-box > .container { padding: 0 16px 0 20px; }
+  .shunchung-header .shunchung-logo__img { height: 41px; }
+  .shunchung-header .mb-icon { color: #25262a; }
+}
+
+// ===== 10. Footer 覆写 =====
+.shunchung-footer.footer-box {
+  background: $footer-bg;
+  color: rgba(255, 255, 255, .75);
+
+  .footer-logo { margin-bottom: 1rem; }
+
+  .footer-ceo {
+    background: linear-gradient(135deg, rgba(232, 70, 24, .12) 0%, rgba(255, 138, 0, .08) 100%);
+    border: 1px solid rgba(232, 70, 24, .25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin: .8rem 0 1.2rem;
+    display: inline-block;
+    &__name {
+      color: $primary-2;
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: .04em;
+    }
+  }
+
+  .footer-about { color: rgba(255, 255, 255, .65); font-size: 14px; line-height: 1.85; }
+
+  .footer-social {
+    display: flex; gap: 10px; margin-top: 1.2rem;
+    a {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .06);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255, 255, 255, .75);
+      transition: all .2s;
+      &:hover {
+        background: linear-gradient(135deg, $primary 0%, $primary-2 100%);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .footer-title {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    letter-spacing: .05em;
+  }
+
+  .footer-links {
+    list-style: none; padding: 0; margin: 0;
+    li { margin-bottom: 9px; }
+    a {
+      color: rgba(255, 255, 255, .65);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: all .2s;
+      &:hover {
+        color: $primary-2;
+        padding-left: 5px;
+      }
+    }
+  }
+
+  .footer-contact {
+    list-style: none; padding: 0; margin: 0;
+    li {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 12px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .75);
+      i {
+        color: $primary-2;
+        margin-top: 3px;
+        flex: 0 0 auto;
+      }
+      a { color: rgba(255, 255, 255, .75); text-decoration: none; &:hover { color: $primary-2; } }
+      strong { color: #fff; font-weight: 600; }
+    }
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    padding: 18px 0;
+    font-size: 13px;
+  }
+}
+
+
+// ===== 覆盖 InnoCMS 默认 .header-box .logo 固定宽度限制 =====
+// 默认主题给 .header-box .logo 设了 width:160px (pc) / 120px (mobile)，
+// 导致双张的 SVG logo 被压缩并触发父级 overflow:hidden 裁切。
+// 重置宽度，让 logo 由 SVG 自然尺寸决定。
+.header-box .shunchung-logo {
+  width: auto !important;
+  max-width: none !important;
+  flex: 0 0 auto !important;   /* 不被父级 flex 压缩 */
+}
+
+
+// 覆盖 footer logo 的 max-width:180px 限制（默认主题）
+.footer-box .shunchung-logo {
+  max-width: none !important;
+  width: auto !important;
+  flex: 0 0 auto !important;
+}
+
+
+// =====================================================================
+// 全屏 HERO（背景图 + 3D + 标题按钮）
+// =====================================================================
+// ====== 全屏 HERO（背景图+3D+标题按钮）======
+
+.sc-hero-new {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 88px 1.5rem 1.5rem;
+  background: #0a0a0a;
+  color: #fff;
+
+  &__bg {
+    position: absolute;
+    inset: -3% -1% -1%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(1.5px) saturate(.92) brightness(.64);
+    transform: scale(1.03);
+    z-index: 0;
+  }
+
+  &__veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, .12) 0%, rgba(0, 0, 0, .35) 58%, rgba(0, 0, 0, .68) 100%);
+    z-index: 1;
+  }
+
+  &__top {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__3d {
+    position: relative;
+    width: 100%;
+    max-width: 1440px;
+    height: 46vh;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1vh;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 7%;
+      left: 50%;
+      width: 56%;
+      height: 28px;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, .58);
+      border-radius: 50%;
+      filter: blur(18px);
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+
+    &__mv {
+      width: 100%;
+      height: 100%;
+      --poster-color: transparent;
+      --progress-bar-color: rgba(255, 138, 0, .85);
+    }
+
+  &__bottom {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 960px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: .4rem;
+  }
+
+  &__bottom > .btn-copper-shine { margin-bottom: 1rem; }
+
+  &__title {
+    font-size: 3.1rem;
+    font-weight: 800;
+    line-height: 1.18;
+    margin-bottom: .85rem;
+    letter-spacing: -.01em;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, .55);
+  }
+
+  &__title-accent {
+    background: linear-gradient(135deg, #ffb800 0%, #ff8a00 50%, #e84618 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    padding: 0 .1em;
+  }
+
+  &__sub {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, .86);
+    max-width: 780px;
+    margin: 0 auto 1rem;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, .62);
+  }
+
+  &__scroll {
+    margin-top: .65rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: rgba(255, 255, 255, .65);
+    font-size: .72rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    i { font-size: 1rem; }
+  }
+
+  @media (max-width: 768px) {
+    padding: 80px 1rem 1rem;
+    &__3d { height: 39vh; min-height: 270px; margin-top: 0; }
+    &__title { font-size: 2rem; line-height: 1.25; }
+    &__sub { font-size: .9rem; line-height: 1.7; }
+    &__scroll { margin-top: .35rem; }
+  }
+}
+
+// 简洁企业色 CTA：保留必要的 hover 反馈，不使用多球扩散动效。
+.btn-copper-shine {
+  display: inline-flex;
+  align-items: center;
+  padding: .72rem 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e84618 0%, #b73a21 100%);
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(183, 58, 33, .28);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+
+  &:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    filter: brightness(1.04);
+    box-shadow: 0 10px 24px rgba(183, 58, 33, .38);
+  }
+
+  > span { position: relative; z-index: 1; }
+}
+
+// fixed 头部 class
+.is-fixed-top {
+  position: fixed !important;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+// ===== 首页导航 v12：企业色渐变胶囊 + 语言菜单对齐 =====
+body.page-home {
+  --shunchung-navy: #183D76;
+  --shunchung-blue: #1A3C6E;
+  --shunchung-orange: #F39800;
+
+  .site-header {
+    transition: transform .3s ease;
+    will-change: transform;
+
+    &.header-hidden { transform: translateY(-130%); }
+  }
+
+  .shunchung-header .header-box {
+    position: relative;
+    width: min(1440px, calc(100% - 48px));
+    max-width: none;
+    margin: 14px auto 0;
+    padding: 0;
+    border: 1px solid rgba(24, 61, 118, .12);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 12px 34px rgba(24, 61, 118, .12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .shunchung-header .header-box > .container {
+    width: 100%;
+    max-width: none;
+    min-height: 76px;
+    padding: 0 24px;
+  }
+
+  .shunchung-header .shunchung-logo__img,
+  .shunchung-header .mb-logo .shunchung-logo__img {
+    height: 35px !important;
+    width: auto;
+  }
+
+  // 所有 CTA 使用同一套双张企业色渐变胶囊。
+  .header-menu .btn.btn-accent,
+  .btn-copper-shine,
+  .sc-cta .btn-light {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 !important;
+    overflow: hidden;
+    isolation: isolate;
+    cursor: pointer;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: linear-gradient(110deg, var(--shunchung-navy) 0%, var(--shunchung-blue) 54%, var(--shunchung-orange) 100%) !important;
+    box-shadow: 0 8px 22px rgba(24, 61, 118, .22) !important;
+    color: #fff;
+    transition: box-shadow .3s ease, transform .3s ease;
+  }
+
+  .header-menu .btn.btn-accent::after,
+  .btn-copper-shine::after,
+  .sc-cta .btn-light::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: linear-gradient(110deg, var(--shunchung-orange) 0%, #f6ad2e 100%);
+    transition: width .35s ease-in-out;
+    z-index: 1;
+  }
+
+  .header-menu .btn.btn-accent:hover::after,
+  .btn-copper-shine:hover::after,
+  .sc-cta .btn-light:hover::after {
+    width: 100%;
+  }
+
+  .header-menu .btn.btn-accent:hover,
+  .btn-copper-shine:hover,
+  .sc-cta .btn-light:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 11px 28px rgba(24, 61, 118, .28) !important;
+  }
+
+  .header-menu .btn.btn-accent > span,
+  .btn-copper-shine > span,
+  .sc-cta .btn-light > span {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    width: 100%;
+    padding: 0 22px;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    font-size: .92rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    transition: color .25s ease, transform .25s ease;
+  }
+
+  .header-menu .btn.btn-accent:hover > span,
+  .btn-copper-shine:hover > span,
+  .sc-cta .btn-light:hover > span {
+    color: var(--shunchung-navy);
+    transform: scale(.98);
+  }
+
+  .header-menu .btn.btn-accent > span i,
+  .btn-copper-shine > span i { margin-right: .4rem; }
+
+  .btn-copper-shine > span { padding: 0 26px; }
+  .sc-cta .btn-light > span { min-height: 48px; padding: 0 28px; }
+
+  // 语言菜单锚定到整条胶囊导航底部，和一级菜单下拉保持同一水平线。
+  .header-lang {
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+
+  .header-lang__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(24, 61, 118, .14);
+    border-radius: 999px;
+    color: var(--shunchung-navy);
+    background: rgba(255, 255, 255, .55);
+    cursor: pointer;
+    transition: color .2s ease, background .2s ease, transform .2s ease;
+  }
+
+  .header-lang__btn i { font-size: 1.18rem; }
+
+  .header-lang:hover .header-lang__btn,
+  .header-lang:focus-within .header-lang__btn,
+  .header-lang.show .header-lang__btn {
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(110deg, var(--shunchung-navy), var(--shunchung-orange));
+    transform: translateY(-1px);
+  }
+
+  .header-lang__menu {
+    display: block;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 24px;
+    left: auto;
+    min-width: 180px;
+    margin: 0 !important;
+    padding: 8px;
+    border: 1px solid rgba(24, 61, 118, .12);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 14px 32px rgba(24, 61, 118, .18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+  }
+
+  .header-lang:hover > .dropdown-menu,
+  .header-lang:focus-within > .dropdown-menu,
+  .header-lang.show > .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .header-lang__item {
+    padding: 9px 12px;
+    border-radius: 9px;
+    color: #333;
+    font-size: .88rem;
+  }
+
+  .header-lang__item:hover,
+  .header-lang__item.is-active {
+    color: var(--shunchung-navy);
+    background: rgba(243, 152, 0, .13);
+  }
+
+  @media (max-width: 991.98px) {
+    .shunchung-header .header-box {
+      width: calc(100% - 24px);
+      margin-top: 10px;
+      border-radius: 28px;
+    }
+
+    .shunchung-header .header-box > .container {
+      min-height: 60px;
+      padding: 0 16px;
+    }
+
+    .header-lang { margin-left: 4px; }
+    .header-lang__btn { width: 38px; height: 38px; }
+    .header-lang__menu { right: 16px; }
+    .header-menu .btn.btn-accent > span,
+    .btn-copper-shine > span,
+    .sc-cta .btn-light > span { letter-spacing: .04em; }
+  }
+}
+
+// 双张新材首页：以服务器现有样式为基础的最小追加覆盖。
+// 保留的服务器中 sc-tech、sc-about 等既有模块定义。
+
+body.page-home {
+  --shunchung-red: #d62d24;
+  --shunchung-red-dark: #971b18;
+  --shunchung-black: #08090b;
+  --shunchung-charcoal: #24262b;
+
+  .sc-hero-new {
+    min-height: auto;
+    padding-bottom: 0;
+
+    &__3d {
+      height: 42vh;
+      min-height: 330px;
+      margin-top: 0;
+    }
+
+    &__bottom {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-bottom: 1rem;
+    }
+
+    &__bottom > .btn-copper-shine {
+      margin-bottom: .75rem;
+    }
+  }
+
+  .sc-stats {
+    padding-top: 2.25rem;
+  }
+
+  .shunchung-header .header-box > .container {
+    display: grid !important;
+    grid-template-columns: minmax(190px, 1fr) auto minmax(190px, 1fr);
+  }
+
+  .shunchung-header .logo {
+    justify-self: start;
+  }
+
+  .shunchung-header .header-menu {
+    grid-column: 2 / 4;
+    justify-self: end;
+  }
+
+  .header-lang__btn {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #244a82;
+    box-shadow: none;
+  }
+
+  .header-lang__btn:hover,
+  .header-lang__btn:focus,
+  .header-lang.show .header-lang__btn {
+    background: transparent;
+    color: var(--shunchung-red);
+    transform: scale(1.08);
+    box-shadow: none;
+  }
+
+  .header-menu .btn.btn-accent,
+  .btn-copper-shine,
+  .sc-cta .btn-light {
+    background: linear-gradient(120deg, var(--shunchung-red) 0%, var(--shunchung-red-dark) 55%, #f36c35 100%) !important;
+  }
+
+  .header-menu .btn.btn-accent::after,
+  .btn-copper-shine::after,
+  .sc-cta .btn-light::after {
+    width: 100%;
+    background: linear-gradient(120deg, var(--shunchung-red) 0%, var(--shunchung-red-dark) 55%, #f36c35 100%);
+  }
+
+  .header-menu .btn.btn-accent:hover::after,
+  .btn-copper-shine:hover::after,
+  .sc-cta .btn-light:hover::after {
+    background: linear-gradient(120deg, var(--shunchung-black) 0%, var(--shunchung-charcoal) 58%, #0c0d0f 100%);
+  }
+
+  .header-menu .btn.btn-accent:hover > span,
+  .btn-copper-shine:hover > span,
+  .sc-cta .btn-light:hover > span {
+    color: #fff;
+  }
+
+  @media (max-width: 1199px) {
+    .shunchung-header .header-box > .container {
+      grid-template-columns: 1fr auto;
+    }
+
+    .shunchung-header .header-menu {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sc-hero-new {
+      &__3d {
+        height: 36vh;
+        min-height: 260px;
+      }
+    }
+
+    .sc-stats {
+      padding-top: 2rem;
+    }
+  }
+}
+
+
+// ===== 导航胶囊垂直居中修复 =====
+body.page-home .shunchung-header .header-box > .container {
+  display: flex !important;
+  align-items: center !important;
+}
+
+body.page-home .shunchung-header .logo,
+body.page-home .shunchung-header .shunchung-logo__link,
+body.page-home .shunchung-header .header-menu {
+  display: flex !important;
+  align-items: center !important;
+}
+
+body.page-home .shunchung-header .logo,
+body.page-home .shunchung-header .shunchung-logo__link {
+  height: 100%;
+}
+
+body.page-home .shunchung-header .shunchung-logo__link {
+  line-height: 0;
+}
+
+body.page-home .shunchung-header .shunchung-logo__img {
+  display: block;
+  flex: 0 0 auto;
+  vertical-align: middle;
+}
+
+body.page-home .shunchung-header .navbar,
+body.page-home .shunchung-header .navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+
+// ===== Logo 视觉中心微调：SVG 下缘留白导致视觉上偏上 =====
+body.page-home .shunchung-header .shunchung-logo__img {
+  transform: translateY(2px);
+}
+
+
+// ===== 全站 Porto Business Consulting 风格导航 =====
+// 取消首页专属胶囊：统一全站使用顶部信息条 + 白色全宽主导航。
+.shunchung-header {
+  position: relative;
+  z-index: 1000;
+  background: #fff;
+}
+
+.shunchung-header .header-topbar {
+  display: block !important;
+  min-height: 38px;
+  padding: 0;
+  background: #183d76;
+  color: rgba(255, 255, 255, .86);
+  font-size: 12px;
+}
+
+.shunchung-header .header-topbar > .container,
+.shunchung-header .header-topbar .container {
+  min-height: 38px;
+}
+
+.shunchung-header .header-topbar a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.shunchung-header .header-topbar a:hover { color: #f39800; }
+
+.shunchung-header .header-box {
+  width: 100%;
+  max-width: none;
+  height: 82px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(24, 61, 118, .08);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.shunchung-header .header-box > .container {
+  width: min(1440px, calc(100% - 48px));
+  max-width: none;
+  min-height: 82px;
+  height: 82px;
+  padding: 0;
+}
+
+.shunchung-header .logo,
+.shunchung-header .shunchung-logo__link,
+.shunchung-header .header-menu,
+.shunchung-header .navbar,
+.shunchung-header .navbar-nav {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.shunchung-header .logo { height: 100%; margin-right: 42px; }
+.shunchung-header .shunchung-logo__link { height: 100%; line-height: 0; }
+.shunchung-header .shunchung-logo__img {
+  display: block;
+  height: 42px !important;
+  width: auto;
+  transform: none;
+}
+
+.shunchung-header .header-menu {
+  flex: 1 1 auto;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.shunchung-header .navbar { height: 100%; padding: 0; }
+.shunchung-header .navbar-nav { height: 100%; gap: 2px; }
+.shunchung-header .navbar .nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 100%;
+  padding: 0 15px;
+  margin: 0;
+  color: #183d76;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  transition: color .2s ease;
+}
+
+.shunchung-header .navbar .nav-link::after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+  left: 15px;
+  height: 3px;
+  background: #f39800;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .2s ease;
+}
+
+.shunchung-header .navbar .nav-link:hover,
+.shunchung-header .navbar .nav-item.is-active > .nav-link { color: #f39800; }
+.shunchung-header .navbar .nav-link:hover::after,
+.shunchung-header .navbar .nav-item.is-active > .nav-link::after { transform: scaleX(1); }
+
+.shunchung-header .has-mega__caret { font-size: 10px; transition: transform .2s ease; }
+.shunchung-header .nav-item.has-mega:hover .has-mega__caret { transform: rotate(180deg); }
+
+.shunchung-header .header-menu .btn.btn-accent {
+  min-height: 42px;
+  margin-left: 18px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 2px !important;
+  background: #f39800 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.shunchung-header .header-menu .btn.btn-accent::after { display: none; }
+.shunchung-header .header-menu .btn.btn-accent > span {
+  min-height: 42px;
+  width: auto;
+  padding: 0 20px;
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: .06em;
+}
+.shunchung-header .header-menu .btn.btn-accent:hover { background: #183d76 !important; }
+.shunchung-header .header-menu .btn.btn-accent:hover > span { color: #fff; transform: none; }
+
+.shunchung-header .header-lang { margin-left: 12px; }
+.shunchung-header .header-lang__btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(24, 61, 118, .2);
+  border-radius: 50%;
+  background: #fff;
+}
+
+.shunchung-header .header-lang:hover .header-lang__btn,
+.shunchung-header .header-lang:focus-within .header-lang__btn,
+.shunchung-header .header-lang.show .header-lang__btn {
+  background: #183d76;
+}
+
+@media (max-width: 1199.98px) {
+  .shunchung-header .logo { margin-right: 20px; }
+  .shunchung-header .navbar .nav-link { padding: 0 9px; font-size: 12px; }
+  .shunchung-header .navbar .nav-link::after { right: 9px; left: 9px; }
+}
+
+@media (max-width: 991.98px) {
+  .shunchung-header .header-box,
+  .shunchung-header .header-box > .container { height: 70px; min-height: 70px; }
+  .shunchung-header .header-box > .container { width: calc(100% - 32px); }
+  .shunchung-header .shunchung-logo__img { height: 36px !important; }
+}
+/* homepage-nav-final: override legacy capsule rules on the homepage */
+body.page-home .shunchung-header .header-box {
+  width: 100% !important; max-width: none !important; height: 82px !important; min-height: 82px !important;
+  margin: 0 !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important;
+  background: #fff !important; box-shadow: 0 2px 12px rgba(24, 61, 118, .08) !important;
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+}
+body.page-home .shunchung-header .header-box > .container {
+  width: min(1440px, calc(100% - 48px)) !important; max-width: none !important; height: 82px !important;
+  min-height: 82px !important; padding: 0 !important;
+}
+body.page-home .shunchung-header .logo { margin-right: 42px !important; }
+body.page-home .shunchung-header .navbar { height: 100% !important; padding: 0 !important; }
+body.page-home .shunchung-header .navbar-nav { height: 100% !important; gap: 2px !important; }
+body.page-home .shunchung-header .navbar .nav-link {
+  height: 100% !important; padding: 0 15px !important; border-radius: 0 !important;
+  background: transparent !important; box-shadow: none !important;
+}
+body.page-home .shunchung-header .header-menu .btn.btn-accent {
+  min-height: 42px !important; height: 42px !important; padding: 0 !important; border-radius: 2px !important;
+  background: #f39800 !important; box-shadow: none !important;
+}
+@media (max-width: 1199.98px) {
+  body.page-home .shunchung-header .logo { margin-right: 20px !important; }
+  body.page-home .shunchung-header .navbar .nav-link { padding: 0 9px !important; }
+}
+@media (max-width: 991.98px) {
+  body.page-home .shunchung-header .header-box, body.page-home .shunchung-header .header-box > .container {
+    height: 70px !important; min-height: 70px !important;
+  }
+  body.page-home .shunchung-header .header-box > .container { width: calc(100% - 32px) !important; }
+}
+/* all-pages-nav-final-v2: one shared Porto-style header for every front page */
+.shunchung-header .header-box {
+  width: 100% !important;
+  max-width: none !important;
+  height: 82px !important;
+  min-height: 82px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  box-shadow: 0 2px 12px rgba(24, 61, 118, .08) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.shunchung-header .header-box > .container {
+  width: min(1440px, calc(100% - 48px)) !important;
+  max-width: none !important;
+  height: 82px !important;
+  min-height: 82px !important;
+  padding: 0 !important;
+}
+.shunchung-header .logo,
+.shunchung-header .shunchung-logo__link,
+.shunchung-header .header-menu,
+.shunchung-header .navbar,
+.shunchung-header .navbar-nav {
+  display: flex !important;
+  align-items: center !important;
+}
+.shunchung-header .logo { height: 100%; margin-right: 42px !important; }
+.shunchung-header .shunchung-logo__link { height: 100%; line-height: 0; }
+.shunchung-header .navbar { height: 100% !important; padding: 0 !important; }
+.shunchung-header .navbar-nav { height: 100% !important; gap: 2px !important; }
+.shunchung-header .navbar .nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 100% !important;
+  padding: 0 15px !important;
+  margin: 0;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.shunchung-header .header-menu .btn.btn-accent {
+  min-height: 42px !important;
+  height: 42px !important;
+  padding: 0 !important;
+  border-radius: 2px !important;
+  background: #f39800 !important;
+  box-shadow: none !important;
+}
+@media (max-width: 1199.98px) {
+  .shunchung-header .logo { margin-right: 20px !important; }
+  .shunchung-header .navbar .nav-link { padding: 0 9px !important; }
+}
+@media (max-width: 991.98px) {
+  .shunchung-header .header-box,
+  .shunchung-header .header-box > .container {
+    height: 70px !important;
+    min-height: 70px !important;
+  }
+  .shunchung-header .header-box > .container { width: calc(100% - 32px) !important; }
+}
+
+
+// ===== Shunchung global design system =====
+// Logo palette: blue #3366B1, graphite #292B2F, copper red #B83B21/#E94619.
+:root {
+  --sc-blue: #3366B1;
+  --sc-blue-dark: #292B2F;
+  --sc-copper: #E94619;
+  --sc-copper-deep: #B83B21;
+  --sc-ink: #292B2F;
+  --sc-muted: #68707c;
+  --sc-line: #e6e8ec;
+  --sc-surface: #f7f8fa;
+}
+
+// ponytail: one shared container rule keeps every section aligned; split by breakpoint only when the viewport cannot fit 1400px.
+.shunchung-header .container,
+.shunchung-footer .container,
+body > .container,
+main .container,
+section .container,
+.container {
+  width: calc(100% - 48px) !important;
+  max-width: 1400px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.shunchung-header .header-topbar,
+.shunchung-header .header-box {
+  width: 100%;
+}
+
+.shunchung-header .header-box > .container,
+.shunchung-header .header-topbar > .container {
+  width: calc(100% - 48px) !important;
+  max-width: 1400px !important;
+}
+
+// Use the supplied English master logo on every locale so the brand mark never changes between pages.
+.shunchung-header .shunchung-logo__img,
+.shunchung-header .mb-logo .shunchung-logo__img,
+.shunchung-footer .shunchung-logo__img {
+  width: 241.327px !important;
+  max-width: 100%;
+  height: auto !important;
+  object-fit: contain;
+  filter: none !important;
+}
+
+// Corporate colors derived from the supplied logo.
+body,
+.text-primary { color: var(--sc-ink); }
+a { color: var(--sc-blue); }
+a:hover { color: var(--sc-copper); }
+.btn-primary,
+.btn-accent,
+.btn-copper-shine {
+  background: linear-gradient(135deg, var(--sc-copper-deep), var(--sc-copper)) !important;
+  border-color: var(--sc-copper) !important;
+  color: #fff !important;
+}
+.btn-primary:hover,
+.btn-accent:hover,
+.btn-copper-shine:hover {
+  background: var(--sc-blue) !important;
+  border-color: var(--sc-blue) !important;
+  color: #fff !important;
+}
+.btn-outline-primary {
+  color: var(--sc-blue) !important;
+  border-color: var(--sc-blue) !important;
+}
+.btn-outline-primary:hover {
+  background: var(--sc-blue) !important;
+  color: #fff !important;
+}
+
+// All action buttons are pills. Icon-only controls stay transparent and use color only.
+a.btn,
+button.btn,
+input[type="submit"].btn,
+input[type="button"].btn,
+.btn-primary,
+.btn-secondary,
+.btn-accent,
+.btn-light,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-light,
+.btn-copper-shine,
+.header-menu .btn,
+.sc-cta .btn {
+  border-radius: 999px !important;
+}
+
+.btn:has(> i:only-child),
+button:has(> i:only-child),
+.shunchung-header .header-lang__btn,
+.shunchung-header .topbar-lang__btn,
+.shunchung-header .mb-icon,
+.shunchung-header .close-offcanvas {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: var(--sc-blue) !important;
+  border-radius: 0 !important;
+}
+.btn:has(> i:only-child):hover,
+button:has(> i:only-child):hover,
+.shunchung-header .header-lang__btn:hover,
+.shunchung-header .topbar-lang__btn:hover,
+.shunchung-header .mb-icon:hover,
+.shunchung-header .close-offcanvas:hover {
+  background: transparent !important;
+  color: var(--sc-copper) !important;
+}
+
+// Keep nav, page bodies, cards and footer on the same 1400px grid.
+.shunchung-header .header-box > .container { min-height: 84px; }
+.shunchung-header .header-box,
+.shunchung-header .header-box > .container,
+.shunchung-header .logo,
+.shunchung-header .shunchung-logo__link,
+.shunchung-header .header-menu,
+.shunchung-header .navbar,
+.shunchung-header .navbar-nav {
+  align-items: center !important;
+}
+.shunchung-header .header-box > .container { display: flex !important; }
+.shunchung-header .logo,
+.shunchung-header .shunchung-logo__link,
+.shunchung-header .header-menu,
+.shunchung-header .navbar,
+.shunchung-header .navbar-nav { display: flex !important; }
+.shunchung-header .shunchung-logo__link { line-height: 0; }
+.shunchung-header .navbar .nav-link { color: var(--sc-ink) !important; }
+.shunchung-header .navbar .nav-link:hover,
+.shunchung-header .navbar .nav-item.is-active > .nav-link { color: var(--sc-copper) !important; }
+.shunchung-header .navbar .nav-link::after,
+.shunchung-header .navbar .nav-item.is-active > .nav-link::after { background: var(--sc-copper) !important; }
+.shunchung-header .header-topbar { background: var(--sc-blue-dark) !important; }
+.shunchung-header .header-topbar a:hover { color: var(--sc-copper) !important; }
+
+@media (max-width: 1450px) {
+  .shunchung-header .header-box > .container,
+  .shunchung-header .header-topbar > .container,
+  .shunchung-footer .container,
+  body > .container,
+  main .container,
+  section .container,
+  .container { width: calc(100% - 40px) !important; }
+}
+@media (max-width: 767.98px) {
+  .shunchung-header .header-box > .container,
+  .shunchung-header .header-topbar > .container,
+  .shunchung-footer .container,
+  body > .container,
+  main .container,
+  section .container,
+  .container { width: calc(100% - 32px) !important; }
+  .shunchung-header .header-box > .container { min-height: 70px; }
+  .shunchung-header .shunchung-logo__img,
+  .shunchung-header .mb-logo .shunchung-logo__img { width: 205px !important; }
+}
+
+
+// Corporate colors derived from the supplied logo.
+body { color: var(--sc-ink); }
+.text-primary { color: var(--sc-blue) !important; }
+a { color: var(--sc-blue); }
+a:hover { color: var(--sc-copper); }
+.btn-primary,
+.btn-accent,
+.btn-copper-shine {
+  background: linear-gradient(135deg, var(--sc-copper-deep), var(--sc-copper)) !important;
+  border-color: var(--sc-copper) !important;
+  color: #fff !important;
+}
+.btn-primary:hover,
+.btn-accent:hover,
+.btn-copper-shine:hover {
+  background: var(--sc-blue) !important;
+  border-color: var(--sc-blue) !important;
+  color: #fff !important;
+}
+.btn-outline-primary,
+.btn-outline-secondary {
+  color: var(--sc-blue) !important;
+  border-color: var(--sc-blue) !important;
+}
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover {
+  background: var(--sc-blue) !important;
+  border-color: var(--sc-blue) !important;
+  color: #fff !important;
+}
+
+// All action buttons are pills. Icon-only controls stay transparent and use color only.
+a.btn,
+button.btn,
+input[type="submit"].btn,
+input[type="button"].btn,
+.btn-primary,
+.btn-secondary,
+.btn-accent,
+.btn-light,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-light,
+.btn-copper-shine,
+.header-menu .btn,
+.sc-cta .btn {
+  border-radius: 999px !important;
+}
+/* logo-color-final: preserve the supplied SVG palette; never monochrome the brand mark */
+.shunchung-header img.shunchung-logo__img,
+.shunchung-header img.shunchung-logo__img--dark,
+.shunchung-header img.shunchung-logo__img--nofilter,
+.shunchung-footer img.shunchung-logo__img {
+  filter: none !important;
+  -webkit-filter: none !important;
+  opacity: 1 !important;
+}
+
+
+/* trust-metrics-final: four borderless columns with a red gradient count-up */
+.sc-stats {
+  padding: 5.2rem 0 5.8rem;
+  border: 0 !important;
+}
+.sc-stats__grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.5rem;
+}
+.sc-stats__card {
+  padding: 1.6rem .75rem 1.2rem;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible;
+}
+.sc-stats__card::before { display: none !important; }
+.sc-stats__card:hover {
+  transform: translateY(-4px);
+  box-shadow: none !important;
+}
+.sc-stats__num,
+.sc-stats__plus {
+  background: linear-gradient(135deg, #f04a23 0%, #c52c29 48%, #9f1f2d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.sc-stats__num {
+  font-size: clamp(3.2rem, 5vw, 5.2rem);
+  line-height: .95;
+  margin-bottom: 1rem;
+  letter-spacing: -.06em;
+}
+.sc-stats__plus {
+  font-size: .5em;
+  vertical-align: .22em;
+  margin-left: .08em;
+}
+.sc-stats__label {
+  font-size: .72rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .06em;
+  color: #777b82;
+}
+@media (max-width: 767.98px) {
+  .sc-stats { padding: 3.8rem 0 4.2rem; }
+  .sc-stats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1rem; }
+  .sc-stats__num { font-size: clamp(2.7rem, 14vw, 4rem); }
+  .sc-stats__label { font-size: .68rem; }
+}
+
+
+/* module-reorder-final: product showcase first, solution list second */
+.sc-products-showcase { position: relative; overflow: hidden; padding: 6.5rem 0 7rem; background: linear-gradient(135deg, #8f1e24 0%, #c8322c 46%, #ef5b35 100%); }
+.sc-products-showcase::before, .sc-products-showcase::after { content: ''; position: absolute; border-radius: 50%; pointer-events: none; }
+.sc-products-showcase::before { width: 29rem; height: 29rem; left: -13rem; top: 8rem; border: 1px solid rgba(255,255,255,.18); box-shadow: 0 0 0 3.5rem rgba(255,255,255,.06), 0 0 0 8rem rgba(255,255,255,.035); }
+.sc-products-showcase::after { width: 14rem; height: 14rem; right: -5rem; bottom: -4rem; background: rgba(255,255,255,.08); box-shadow: 0 0 0 2.5rem rgba(255,255,255,.05), 0 0 0 5rem rgba(255,255,255,.035); }
+.sc-products-showcase .container { position: relative; z-index: 1; }
+.sc-products-showcase .module-title, .sc-products-showcase .module-sub-title { color: #fff; }
+.sc-products-showcase .module-sub-title { color: rgba(255,255,255,.82); }
+.sc-products-showcase .gradient-text { background-image: linear-gradient(90deg, #fff 0%, #ffd2c5 100%); }
+.sc-products-showcase__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.sc-product-tile { position: relative; display: block; min-height: 24rem; overflow: hidden; border-radius: 1.5rem; isolation: isolate; }
+.sc-product-tile img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; transition: transform .5s ease, filter .5s ease; }
+.sc-product-tile--coil img { object-position: 25% center; }
+.sc-product-tile--busbar img { object-position: 78% center; filter: saturate(.8) brightness(.78); }
+.sc-product-tile__veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(30,7,8,.02) 30%, rgba(30,7,8,.78) 100%); }
+.sc-product-tile__title { position: absolute; z-index: 2; left: 2rem; bottom: 1.7rem; color: #fff; font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 700; letter-spacing: -.02em; }
+.sc-product-tile:hover img { transform: scale(1.05); filter: saturate(1.08) brightness(.9); }
+.sc-solutions-showcase { padding: 6rem 0 6.5rem; background: #fff; }
+.sc-solutions-showcase .module-title { margin-bottom: 1rem; }
+.sc-solutions-showcase .module-sub-title { max-width: 820px; margin-bottom: 3.25rem; }
+.sc-solutions-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.75rem; }
+.sc-solution-item { display: flex; align-items: flex-start; gap: 1rem; min-width: 0; padding: .5rem 0; color: inherit; text-decoration: none; transition: transform .25s ease; }
+.sc-solution-item:hover { transform: translateY(-4px); color: inherit; }
+.sc-solution-item__icon { flex: 0 0 3.25rem; display: grid; place-items: center; color: #c8322c; font-size: 2rem; line-height: 1; }
+.sc-solution-item__content { min-width: 0; display: grid; gap: .55rem; }
+.sc-solution-item__title { color: #292b2f; font-weight: 750; font-size: 1rem; line-height: 1.35; }
+.sc-solution-item__desc { color: #777b82; font-size: .82rem; line-height: 1.6; }
+.sc-solution-item__arrow { margin: .2rem 0 0 auto; color: #c8322c; opacity: 0; transform: translate(-4px, 4px); transition: opacity .25s ease, transform .25s ease; }
+.sc-solution-item:hover .sc-solution-item__arrow { opacity: 1; transform: translate(0, 0); }
+@media (max-width: 991.98px) { .sc-solutions-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767.98px) {
+  .sc-products-showcase { padding: 4.5rem 0 5rem; }
+  .sc-products-showcase__grid { grid-template-columns: 1fr; margin-top: 2.25rem; }
+  .sc-product-tile { min-height: 17rem; }
+  .sc-solutions-showcase { padding: 4.5rem 0 5rem; }
+  .sc-solutions-showcase .module-sub-title { margin-bottom: 2.25rem; }
+  .sc-solutions-list { grid-template-columns: 1fr; gap: 1rem; }
+  .sc-solution-item { padding: .35rem 0; }
+}
+
+
+/* homepage-content-modules-v2 */
+.sc-section-heading{text-align:center;max-width:900px;margin:0 auto 3rem}.sc-stats__heading{margin-bottom:3.5rem}.sc-stats__heading .module-sub-title,.sc-section-heading .module-sub-title{max-width:760px;margin-left:auto;margin-right:auto}.sc-stats__heading .module-title,.sc-section-heading .module-title{margin-bottom:.9rem}.sc-stats{padding-top:6.2rem;padding-bottom:6.8rem}.sc-stats__grid{gap:2.75rem}.sc-stats__card{padding:1.4rem .5rem 1.1rem}
+.sc-about-copy{padding:7rem 0;color:#fff;background:linear-gradient(135deg,#050505,#17181b 48%,#050505)}.sc-about-copy__inner{max-width:980px;margin:0 auto;text-align:center}.sc-about-copy__eyebrow{font-size:.7rem;letter-spacing:.2em;color:#e94619;font-weight:700}.sc-about-copy .module-title{margin:.8rem 0 1rem}.sc-about-copy .module-title .gradient-text{background-image:linear-gradient(90deg,#fff,#c5c7cc)}.sc-about-copy .module-sub-title{max-width:780px;margin:0 auto;color:rgba(255,255,255,.7)}.sc-about-copy__body{max-width:900px;margin:3.2rem auto 0;text-align:left;display:grid;gap:1.3rem}.sc-about-copy__body p{margin:0;color:rgba(255,255,255,.78);font-size:1rem;line-height:1.95}
+.sc-clients-showcase{padding:6.5rem 0 5.8rem;background:#fff;overflow:hidden}.sc-clients-marquee{width:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}.sc-clients-marquee__track{display:flex;width:max-content;gap:1.1rem;animation:sc-client-marquee 34s linear infinite}.sc-client-logo{width:11.5rem;height:5.75rem;padding:.55rem;flex:0 0 auto;display:grid;place-items:center;border-radius:1rem;background:#f7f7f8;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}.sc-client-logo:hover{transform:translateY(-4px);box-shadow:0 12px 25px rgba(25,28,34,.1)}.sc-client-logo img{display:block;width:100%;height:100%;object-fit:contain;border-radius:.65rem}@keyframes sc-client-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.sc-custom-quote{padding:6.5rem 0 7rem;background:linear-gradient(135deg,#9e1f25,#d63b30 52%,#ef6137)}.sc-custom-quote__eyebrow{display:block;margin-bottom:.8rem;font-size:.68rem;letter-spacing:.2em;font-weight:700;color:rgba(255,255,255,.72)}.sc-custom-quote h2{margin-bottom:.8rem}.sc-custom-quote p{margin-bottom:2.2rem}.sc-quote-form{max-width:980px;margin:0 auto}.sc-quote-form__row{display:grid;grid-template-columns:1.05fr 1.5fr auto auto;gap:.65rem;align-items:stretch}.sc-quote-form__email,.sc-quote-form__message{display:flex;align-items:center;min-width:0;min-height:3.15rem;padding:0 1rem;border-radius:999px;background:#fff;color:#8b8e95}.sc-quote-form__email i{margin-right:.55rem;color:#c8322c}.sc-quote-form input,.sc-quote-form textarea{width:100%;border:0;outline:0;resize:none;background:transparent;color:#292b2f;font:inherit;font-size:.85rem}.sc-quote-form textarea{padding-top:.95rem}.sc-quote-form input::placeholder,.sc-quote-form textarea::placeholder{color:#a0a3a9}.sc-quote-form__file{width:3.15rem;min-height:3.15rem;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.17);color:#fff;cursor:pointer;font-size:1.1rem;transition:background .2s ease,transform .2s ease}.sc-quote-form__file:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}.sc-quote-form__file input{display:none}.sc-quote-form .btn-light{min-height:3.15rem;padding:0 1.35rem;white-space:nowrap}.sc-quote-form .btn-light:disabled{opacity:.65}.sc-quote-form__file-name,.sc-quote-form__alert{min-height:1.25rem;margin-top:.7rem;text-align:center;font-size:.72rem;color:rgba(255,255,255,.78)}.sc-quote-form__alert.is-error{color:#ffe0d8}.shunchung-footer .shunchung-logo__img--white{filter:none!important;-webkit-filter:none!important;opacity:1!important}.shunchung-footer .footer-about,.shunchung-footer .footer-ceo{display:none!important}.shunchung-footer .footer-social a{border-radius:50%}
+@media(max-width:767.98px){.sc-about-copy{padding:5rem 0}.sc-about-copy__body{margin-top:2.2rem}.sc-about-copy__body p{font-size:.9rem;line-height:1.8}.sc-client-logo{width:9.5rem;height:4.8rem}.sc-quote-form__row{grid-template-columns:1fr auto auto}.sc-quote-form__email,.sc-quote-form__message{grid-column:1/-1}}
+
+
+/* shunchung-home-20260913-refinement */
+body.page-home {
+  .sc-hero-new {
+    height: 100svh;
+    min-height: 100svh !important;
+    box-sizing: border-box;
+    padding: 88px 1.5rem 1.5rem;
+    background: #f4f5f7;
+    color: #15171b;
+  }
+
+  .sc-hero-new__bg {
+    opacity: .32;
+    filter: blur(2px) saturate(.62) brightness(1.35);
+  }
+
+  .sc-hero-new__veil {
+    background: linear-gradient(180deg, rgba(255, 255, 255, .55) 0%, rgba(244, 245, 247, .84) 62%, rgba(244, 245, 247, .92) 100%);
+  }
+
+  .sc-hero-new__title {
+    color: #15171b;
+    text-shadow: none;
+  }
+
+  .sc-hero-new__title-accent {
+    background: linear-gradient(135deg, #f04a23 0%, #c52c29 50%, #9f1f2d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .sc-hero-new__sub {
+    color: #3d4148;
+    text-shadow: none;
+  }
+
+  .sc-hero-new__scroll {
+    color: #6a6f78;
+  }
+
+  .sc-hero-new__3d::after {
+    background: rgba(17, 20, 26, .16);
+  }
+
+  .sc-stats {
+    padding: 150px 0 !important;
+    border: 0 !important;
+  }
+
+  .sc-stats__heading { margin-bottom: 3.5rem; }
+  .module-title__plain { color: #15171b; }
+
+  .sc-about-copy {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #0a0d12 !important;
+  }
+
+  .sc-about-copy::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    inset: -24px;
+    background: url("/images/about-shunchung-factory.jpg") center / cover no-repeat;
+    filter: blur(4px) saturate(.9) brightness(.78);
+    transform: scale(1.05);
+  }
+
+  .sc-about-copy::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(5, 9, 16, .72) 0%, rgba(8, 12, 20, .46) 50%, rgba(12, 16, 24, .62) 100%);
+  }
+
+  .sc-about-copy .container { position: relative; z-index: 1; }
+
+  .shunchung-footer .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, .16) !important;
+    margin-top: 0 !important;
+    padding: 22px 0 !important;
+  }
+
+  .shunchung-footer .footer-bottom__row--legal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+  }
+
+  .shunchung-footer .copyright-text {
+    width: 100%;
+    margin: 0;
+    color: rgba(255, 255, 255, .72);
+    text-align: center;
+  }
+
+  .shunchung-footer .powered-by { display: none !important; }
+
+  @media (max-width: 768px) {
+    .sc-hero-new {
+      height: 100svh;
+      min-height: 100svh !important;
+      padding: 76px 1rem 1rem;
+    }
+
+    .sc-stats { padding: 88px 0 !important; }
+  }
+}
+
+/* ===== shunchung-home-v2: 按钮统一 + 语言下拉 + hero 分层 + 置顶 ===== */
+
+/* 1. 统一胶囊按钮（全站）：未选中红色微渐变，选中黑色 */
+.shunchung-header .header-menu .btn.btn-accent,
+body.page-home .shunchung-header .header-menu .btn.btn-accent,
+body.page-home .btn-copper-shine {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .4rem;
+  min-height: 44px !important;
+  padding: 0 1.9rem !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  font-size: .95rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .02em !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  background: linear-gradient(120deg, #f04a23 0%, #e84618 46%, #c52c29 100%) !important;
+  box-shadow: 0 8px 20px rgba(214, 45, 36, .26) !important;
+  transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.shunchung-header .header-menu .btn.btn-accent > span,
+.btn-copper-shine > span {
+  min-height: 0 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  letter-spacing: inherit !important;
+}
+.shunchung-header .header-menu .btn.btn-accent:hover,
+.shunchung-header .header-menu .btn.btn-accent:focus,
+.shunchung-header .header-menu .btn.btn-accent:active,
+body.page-home .shunchung-header .header-menu .btn.btn-accent:hover,
+body.page-home .shunchung-header .header-menu .btn.btn-accent:focus,
+body.page-home .shunchung-header .header-menu .btn.btn-accent:active,
+body.page-home .btn-copper-shine:hover,
+body.page-home .btn-copper-shine:focus,
+body.page-home .btn-copper-shine:active {
+  background: linear-gradient(120deg, #2a2c30 0%, #08090b 100%) !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(8, 9, 11, .32) !important;
+}
+.shunchung-header .header-menu .btn.btn-accent:hover > span,
+.shunchung-header .header-menu .btn.btn-accent:focus > span,
+body.page-home .shunchung-header .header-menu .btn.btn-accent:hover > span,
+body.page-home .shunchung-header .header-menu .btn.btn-accent:focus > span,
+body.page-home .btn-copper-shine:hover > span,
+body.page-home .btn-copper-shine:focus > span {
+  color: #fff !important;
+  transform: none !important;
+}
+
+/* 2. 圆形旗帜（语言菜单，全站） */
+.header-lang__flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #eef0f3;
+  font-size: 13px;
+  line-height: 1;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .05);
+}
+
+/* 3. 一键置顶（全站） */
+.back-to-top {
+  position: fixed;
+  right: 26px;
+  bottom: 26px;
+  z-index: 90;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  font-size: 1.3rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity .3s ease, visibility .3s ease, transform .3s ease, background .25s ease;
+}
+#backToTop {
+  border-radius: 50% !important;
+  background: #c63e1f !important;
+  color: #fff !important;
+  box-shadow: 0 10px 24px rgba(198, 62, 31, .35) !important;
+}
+#backToTop i {
+  color: #fff !important;
+  font-weight: 700;
+  -webkit-text-stroke: 1.1px #fff;
+}
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+#backToTop:hover {
+  background: #a8341a !important;
+}
+
+/* 4. 首页：语言下拉定位 + hero 分层 */
+body.page-home {
+  .header-lang {
+    position: relative !important;
+  }
+  .header-lang__menu {
+    top: calc(100% + 12px) !important;
+    right: 0 !important;
+  }
+
+  .sc-hero-new {
+    display: block;
+    padding: 0 !important;
+  }
+
+  .sc-hero-new__title {
+    position: absolute;
+    left: 50%;
+    top: 57%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0;
+    padding: 0 1.25rem;
+    text-align: center;
+    font-size: clamp(3.2rem, 9vw, 9rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -.035em;
+    color: #16181c;
+    text-shadow: none;
+  }
+  .sc-hero-new__title-accent {
+    display: inline-block;
+    background: linear-gradient(135deg, #f04a23 0%, #c52c29 50%, #9f1f2d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .sc-hero-new__3d {
+    position: absolute;
+    left: 50%;
+    top: 24%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: min(54vw, 820px);
+    height: 38vh;
+    max-height: 400px;
+    min-height: 270px;
+    margin: 0;
+  }
+  .sc-hero-new__3d model-viewer {
+    width: 100%;
+    height: 100%;
+  }
+
+  .sc-hero-new__overlay {
+    position: absolute;
+    left: 50%;
+    bottom: 5.2rem;
+    transform: translateX(-50%);
+    z-index: 3;
+    width: 100%;
+    max-width: 860px;
+    padding: 0 1.25rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+  }
+  .sc-hero-new__sub {
+    max-width: 720px;
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #3d4148;
+  }
+
+  .sc-hero-new__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 1.4rem;
+    transform: translateX(-50%);
+    z-index: 3;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .sc-hero-new__title {
+      top: 54%;
+      font-size: clamp(2.3rem, 11vw, 3.4rem);
+      line-height: 1.08;
+    }
+    .sc-hero-new__3d {
+      top: 28%;
+      width: 90vw;
+      height: 30vh;
+      max-height: 300px;
+      min-height: 200px;
+    }
+    .sc-hero-new__overlay {
+      bottom: 5rem;
+      gap: .9rem;
+    }
+    .sc-hero-new__sub {
+      font-size: .92rem;
+      line-height: 1.65;
+    }
+    .back-to-top {
+      right: 16px;
+      bottom: 16px;
+      width: 42px;
+      height: 42px;
+    }
+  }
+}
+
+/* ===== shunchung-home-v3: 3D尺寸 + logo阴影 + 产品背景 + 表单 + 二级icon ===== */
+
+body.page-home {
+  /* 1. 3D 展示区 1400x800 居中 */
+  .sc-hero-new__3d {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(1400px, 100vw, calc(90vh * 1.75));
+    height: auto;
+    aspect-ratio: 7 / 4;
+    max-height: 800px;
+    min-height: 0;
+    margin: 0;
+  }
+  .sc-hero-new__title {
+    top: 42%;
+    font-size: clamp(3.4rem, 9.5vw, 9.5rem);
+  }
+  .sc-hero-new__overlay {
+    max-width: 780px;
+    padding: .85rem 1.3rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .sc-hero-new__sub {
+    color: #33363c;
+    font-size: .96rem;
+  }
+
+  @media (max-width: 768px) {
+    .sc-hero-new__3d {
+      width: 100vw;
+      height: 56vh;
+      max-height: 520px;
+    }
+    .sc-hero-new__title {
+      top: 40%;
+    }
+    .sc-hero-new__overlay {
+      bottom: 1.2rem;
+      padding: .7rem 1rem;
+    }
+  }
+}
+
+/* 4. 客户 logo 阴影完整性（去掉 overflow:hidden 避免阴影被裁切） */
+.sc-clients-marquee {
+  padding-top: 10px;
+  padding-bottom: 14px;
+}
+.sc-client-logo {
+  overflow: visible !important;
+  box-shadow: 0 2px 10px rgba(25, 28, 34, .08);
+}
+.sc-client-logo:hover {
+  box-shadow: 0 14px 30px rgba(25, 28, 34, .16);
+}
+.sc-client-logo img {
+  border-radius: .65rem;
+  overflow: hidden;
+}
+
+/* 5. 产品模块背景改为图片 + 黑色蒙版 */
+.sc-products-showcase {
+  background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .55)), url("/images/products-showcase-bg.jpg") center / cover no-repeat !important;
+}
+
+/* 6. 定制方案表单 */
+.sc-quote-form__body {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+.sc-quote-form__message {
+  position: relative;
+  display: block;
+  margin: 0;
+  border-radius: 1.1rem;
+  background: #fff;
+  padding: 1.1rem 1.3rem 2.7rem;
+}
+.sc-quote-form__message textarea {
+  width: 100%;
+  min-height: 120px;
+  border: 0;
+  outline: 0;
+  resize: vertical;
+  background: transparent;
+  color: #292b2f;
+  font: inherit;
+  font-size: .9rem;
+  line-height: 1.7;
+}
+.sc-quote-form__message textarea::placeholder {
+  color: #a0a3a9;
+}
+.sc-quote-form__file {
+  position: absolute;
+  right: 1.1rem;
+  bottom: .85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: #c8322c;
+  font-size: .82rem;
+  cursor: pointer;
+  transition: color .2s ease;
+}
+.sc-quote-form__file:hover { color: #9f1f2d; }
+.sc-quote-form__file i { font-size: 1.05rem; }
+.sc-quote-form__file input { display: none; }
+.sc-quote-form__bottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .8rem;
+  align-items: center;
+}
+.sc-quote-form__email {
+  display: flex;
+  align-items: center;
+  min-height: 3.3rem;
+  padding: 0 1.3rem;
+  border-radius: 999px;
+  background: #fff;
+  margin: 0;
+}
+.sc-quote-form__email input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #292b2f;
+  font: inherit;
+  font-size: .88rem;
+}
+.sc-quote-form__email input::placeholder { color: #a0a3a9; }
+.sc-quote-form .btn-light {
+  min-height: 3.3rem;
+  padding: 0 1.6rem;
+  white-space: nowrap;
+}
+@media (max-width: 767.98px) {
+  .sc-quote-form__bottom { grid-template-columns: 1fr; }
+  .sc-quote-form .btn-light { width: 100%; }
+}
+
+/* 3. 二级类目 icon */
+.mega-panel__icon {
+  margin-right: .55rem;
+  font-size: .95rem;
+  color: #c8322c;
+  vertical-align: -0.08em;
+}
+
+/* ===== shunchung-home-v4: logo阴影/产品图形/表单附件/关于拼图/语言居中/banner标题 ===== */
+
+/* 1. 客户 logo 阴影去除 */
+.sc-client-logo { box-shadow: none !important; }
+.sc-client-logo:hover { box-shadow: none !important; }
+
+/* 2. 产品模块图形与 CTA 一致（去掉圆形装饰，纯渐变背景） */
+.sc-products-showcase::before,
+.sc-products-showcase::after { display: none !important; }
+
+/* 3. 表单附件按钮（移到发送旁边） */
+.sc-quote-form__bottom {
+  grid-template-columns: 1fr auto auto;
+  gap: .8rem;
+}
+.sc-quote-form__file {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 3.3rem;
+  min-width: 168px;
+  flex-shrink: 0;
+  padding: 0 1.3rem;
+  border-radius: 999px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-size: .85rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+  margin: 0;
+}
+.sc-quote-form__file .sc-quote-form__file-label {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sc-quote-form__file:hover {
+  background: #fff;
+  color: #0a0a0a;
+}
+.sc-quote-form__file.has-file {
+  background: #0a0a0a;
+  color: #fff;
+  border-color: transparent;
+}
+.sc-quote-form__file i { font-size: 1.05rem; }
+.sc-quote-form__file input { display: none; }
+
+/* 表单按钮等高统一（附件按钮与立即发送按钮同高 3.3rem） */
+.sc-quote-form .btn-light {
+  min-height: 3.3rem !important;
+  height: 3.3rem !important;
+}
+.sc-quote-form .btn-light > span {
+  min-height: 3.3rem !important;
+  height: 3.3rem !important;
+  padding: 0 1.6rem !important;
+}
+
+/* 提交成功弹窗（白底黑字红色按钮） */
+.sc-quote-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.sc-quote-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.sc-quote-modal__mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, .5);
+}
+.sc-quote-modal__dialog {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  color: #15171a;
+  border-radius: 18px;
+  padding: 2.6rem 2rem 2.2rem;
+  text-align: center;
+  max-width: 400px;
+  width: calc(100% - 2.4rem);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .28);
+  transform: translateY(14px);
+  transition: transform .25s ease;
+}
+.sc-quote-modal.is-open .sc-quote-modal__dialog { transform: translateY(0); }
+.sc-quote-modal__icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: #c63e1f;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+}
+.sc-quote-modal__title {
+  margin: 0 0 .4rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #15171a;
+}
+.sc-quote-modal__text {
+  margin: 0 0 1.6rem;
+  color: #555;
+  font-size: .95rem;
+}
+.sc-quote-modal__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.8rem;
+  padding: 0 2.2rem;
+  border: 0;
+  border-radius: 999px;
+  background: #c63e1f;
+  color: #fff;
+  font-size: .92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.sc-quote-modal__btn:hover { background: #a8341a; }
+
+/* 4. 关于我们：4 图不规则拼图 + 文字在右 */
+.sc-about-copy__inner { max-width: 1400px; }
+.sc-about-copy__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 2.4rem;
+}
+.sc-about-copy__collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 132px;
+  gap: 12px;
+}
+.sc-about-copy__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+.sc-about-copy__img--tall { grid-row: span 2; }
+.sc-about-copy__img--wide { grid-column: span 2; }
+.sc-about-copy__body {
+  margin: 0;
+  text-align: left;
+  max-width: none;
+}
+.sc-about-copy__body p {
+  font-size: .94rem;
+  line-height: 1.85;
+}
+
+/* 5. 语言 icon 与文字居中 */
+.header-lang__item {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+}
+.header-lang__flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-lang__flag img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* 6. banner 回滚到 v3 样式（标题底层超大 + 3D 居中 + 副标题毛玻璃） */
+body.page-home {
+  @media (max-width: 991.98px) {
+    .sc-about-copy__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .sc-about-copy__collage { grid-auto-rows: 120px; }
+  }
+  @media (max-width: 767.98px) {
+    .sc-quote-form__bottom { grid-template-columns: 1fr; }
+    .sc-quote-form__file { width: 100%; justify-content: center; }
+    .sc-about-copy__collage { grid-auto-rows: 100px; }
+  }
+}
+
+/* ===== shunchung-home-v5: 标题副标题上移100px + 副标题去毛玻璃框 ===== */
+body.page-home {
+  .sc-hero-new__title {
+    top: calc(42% - 100px);
+  }
+  .sc-hero-new__overlay {
+    bottom: calc(5.2rem + 114px);
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-radius: 0 !important;
+    padding: 0 1.25rem !important;
+  }
+  .sc-hero-new__sub {
+    text-shadow: 0 1px 14px rgba(255, 255, 255, .85);
+  }
+
+  @media (max-width: 768px) {
+    .sc-hero-new__title { top: calc(40% - 70px); }
+    .sc-hero-new__overlay { bottom: calc(1.2rem + 70px); }
+  }
+}
+
+/* ===== shunchung-home-v6: 3D 模型切换（箭头 + 圆点 + 名称） ===== */
+.sc-hero-new__3d .sc-hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .78);
+  color: #c52c29;
+  font-size: 1.3rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(20, 24, 30, .12);
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.sc-hero-new__3d .sc-hero-arrow:hover {
+  background: #c52c29;
+  color: #fff;
+  transform: translateY(-50%) scale(1.06);
+}
+.sc-hero-new__3d .sc-hero-arrow--prev { left: 8px; }
+.sc-hero-new__3d .sc-hero-arrow--next { right: 8px; }
+
+.sc-hero-new__3d .sc-hero-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+}
+.sc-hero-new__3d .sc-hero-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(20, 24, 30, .22);
+  cursor: pointer;
+  transition: background .2s ease, width .25s ease;
+}
+.sc-hero-new__3d .sc-hero-dot.is-active {
+  background: #c52c29;
+  width: 24px;
+  border-radius: 5px;
+}
+
+.sc-hero-new__3d .sc-hero-model-name {
+  position: absolute;
+  left: 50%;
+  bottom: 42px;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  color: #3d4148;
+  white-space: nowrap;
+  padding: .32rem .95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .68);
+  pointer-events: none;
+}
+
+@media (max-width: 767.98px) {
+  .sc-hero-new__3d .sc-hero-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+  .sc-hero-new__3d .sc-hero-model-name {
+    font-size: .74rem;
+    bottom: 38px;
+  }
+}
+
+
+/* v6-fix: 向下滚动指示不拦截 3D 切换控件（箭头/圆点）的点击 */
+.sc-hero-new__scroll { pointer-events: none; }
+
+/* ===== shunchung-home-v8: 产品图替换 + 副标题 + 查看全部按钮 ===== */
+.sc-product-tile { min-height: 28rem; }
+.sc-product-tile--coil img { object-position: center; }
+.sc-product-tile--busbar img { object-position: center; filter: none; }
+.sc-product-tile__content {
+  position: absolute;
+  z-index: 2;
+  left: 2rem;
+  right: 2rem;
+  bottom: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+}
+.sc-product-tile__title {
+  position: static;
+  left: auto;
+  bottom: auto;
+}
+.sc-product-tile__desc {
+  color: rgba(255, 255, 255, .93);
+  font-size: .92rem;
+  line-height: 1.7;
+  max-width: 36rem;
+}
+.sc-products-showcase__more {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 767.98px) {
+  .sc-product-tile { min-height: 22rem; }
+  .sc-product-tile__content { left: 1.25rem; right: 1.25rem; bottom: 1.25rem; }
+  .sc-product-tile__desc { font-size: .84rem; }
+}
+
+/* ===== shunchung-home-v9: 关于双张图片黑白 hover 彩色 + 图注 ===== */
+.sc-about-copy__img {
+  filter: grayscale(100%);
+  transition: filter .45s ease, transform .45s ease;
+}
+.sc-about-copy__img:hover {
+  filter: grayscale(0%);
+  transform: scale(1.03);
+}
+.sc-about-copy__media {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.sc-about-copy__caption {
+  margin: 0;
+  text-align: center;
+  font-size: .88rem;
+  letter-spacing: .14em;
+  color: rgba(255, 255, 255, .78);
+}
+
+/* ===== 铜材价格行情 sc-price-market（唯一最终样式） ===== */
+.sc-price-market {
+  padding: 6rem 0 6.5rem;
+  background: linear-gradient(135deg, #9e1f25, #d63b30 52%, #ef6137);
+  color: #fff;
+}
+.sc-price-market .module-title .gradient-text {
+  background-image: linear-gradient(90deg, #ffffff, #ffd9c8);
+}
+.sc-price-market .module-sub-title {
+  color: rgba(255, 255, 255, .85);
+}
+
+.sc-price-market__panel {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 0 1.35rem;
+  color: #fff;
+}
+
+.sc-price-market .sc-price-market__subscribe {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  margin-top: 1.4rem;
+  min-height: 2.8rem;
+  padding: 0 1.7rem;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #15171a !important;
+  color: #fff !important;
+  font-size: .88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.sc-price-market .sc-price-market__subscribe:hover {
+  background: #fff !important;
+  color: #15171a !important;
+}
+
+.sc-price-market__topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.sc-price-market__eyebrow {
+  display: block;
+  font-size: .68rem;
+  letter-spacing: .16em;
+  opacity: .75;
+}
+.sc-price-market__topline h3 {
+  margin: .35rem 0 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.sc-price-market__topline h3 b { color: #fff; font-weight: 800; }
+
+.sc-price-market__body {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+.sc-price-market__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+.sc-price-market__card {
+  flex: 1;
+  min-height: 0;
+  padding: 1.1rem 1.2rem;
+  border-radius: 1.1rem;
+  background: #fff;
+  color: #25272c;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(90, 10, 25, .18);
+}
+.sc-price-market__card strong { margin: 0; font-size: .95rem; color: #3a3c43; font-weight: 700; }
+.sc-price-market__card b {
+  margin: .5rem 0 .15rem;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -.04em;
+  font-style: italic;
+  font-weight: 800;
+  color: #e82341;
+  font-variant-numeric: tabular-nums;
+}
+.sc-price-market__card--smm b { color: #1a73e8; }
+.sc-price-market__card--lme b { color: #f39800; }
+.sc-price-market__card i { font-size: .72rem; color: #7a7d84; font-style: normal; margin-top: .1rem; white-space: nowrap; }
+
+.sc-price-market__right {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 0;
+}
+.sc-price-market__filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .75rem;
+}
+.sc-price-market__markets, .sc-price-market__ranges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+.sc-price-market__markets span, .sc-price-market__ranges span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.15rem;
+  padding: 0 .9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
+  font-size: .74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.sc-price-market__markets span.is-active, .sc-price-market__ranges span.is-active {
+  background: #fff;
+  color: #e31d3d;
+}
+.sc-price-market__daterange { position: relative; }
+.sc-price-market__date-toggle { gap: .3rem; }
+.sc-price-market__date-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + .5rem);
+  left: 0;
+  z-index: 30;
+  min-width: 15.5rem;
+  padding: .95rem;
+  border-radius: .9rem;
+  background: #fff;
+  color: #25272c;
+  box-shadow: 0 14px 40px rgba(20, 24, 30, .28);
+}
+.sc-price-market__date-panel.is-open { display: block; }
+.sc-price-market__date-field { display: flex; flex-direction: column; gap: .3rem; margin-bottom: .7rem; }
+.sc-price-market__date-field label { font-size: .72rem; color: #7a7d84; }
+.sc-price-market__date-field input {
+  width: 100%;
+  min-height: 2.25rem;
+  padding: 0 .6rem;
+  border: 1px solid #e4e6ea;
+  border-radius: .5rem;
+  font-size: .82rem;
+  color: #25272c;
+  background: #fff;
+}
+.sc-price-market__date-actions { display: flex; gap: .5rem; }
+.sc-price-market__date-actions button {
+  flex: 1;
+  min-height: 2.15rem;
+  border: none;
+  border-radius: .5rem;
+  font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+#copper-date-apply { background: #e31d3d; color: #fff; }
+#copper-date-clear { background: #f1f2f4; color: #3a3c43; }
+.sc-price-market__chart {
+  flex: 1;
+  min-height: 380px;
+  height: auto;
+  padding: .9rem .9rem .4rem;
+  border-radius: 1rem;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(90, 10, 25, .18);
+}
+
+.sc-price-market__note {
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: .68rem;
+  color: rgba(255, 255, 255, .72);
+}
+
+@media (max-width: 991.98px) {
+  .sc-price-market__body { grid-template-columns: 1fr; }
+  .sc-price-market__cards { flex-direction: row; }
+  .sc-price-market__card { flex: 1; }
+  .sc-price-market__chart { min-height: 320px; }
+}
+@media (max-width: 767.98px) {
+  .sc-price-market__cards { flex-direction: column; }
+  .sc-price-market__card { min-height: 8rem; }
+  .sc-price-market__chart { min-height: 280px; }
+}
+
+/* 铜价图表 tooltip：白底黑字（覆盖继承自红底的白色） */
+#copper-chart .apexcharts-tooltip {
+  color: #15171a !important;
+  box-shadow: 0 6px 20px rgba(20, 24, 30, .12) !important;
+}
+#copper-chart .apexcharts-tooltip-title,
+#copper-chart .apexcharts-tooltip-text,
+#copper-chart .apexcharts-tooltip-text-y-value,
+#copper-chart .apexcharts-tooltip-text-y-label,
+#copper-chart .apexcharts-tooltip-text-label {
+  color: #15171a !important;
+}
+
+/* 订阅按钮嵌入副标题（inline 小号胶囊） */
+.sc-price-market .sc-price-market__subscribe--inline {
+  margin-top: 0;
+  margin-left: .15rem;
+  margin-right: .15rem;
+  min-height: 2rem;
+  padding: 0 .85rem;
+  font-size: .78rem;
+  vertical-align: middle;
+}
+
+/* 图表右上角菜单/图标深色（覆盖红底继承的白色） */
+#copper-chart .apexcharts-toolbar svg { fill: #5a5e66; }
+#copper-chart .apexcharts-menu,
+#copper-chart .apexcharts-menu-item {
+  color: #3a3c43 !important;
+}
+#copper-chart .apexcharts-menu-item:hover {
+  color: #15171a !important;
+  background: #f4f5f7;
+}
+
+/* 客户 logo：图片+阴影，去掉灰色框 */
+.sc-client-logo {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.sc-client-logo img {
+  border-radius: .6rem;
+  box-shadow: 0 6px 18px rgba(25, 28, 34, .14);
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+.sc-client-logo:hover img {
+  box-shadow: 0 12px 28px rgba(25, 28, 34, .22);
+  transform: translateY(-2px);
+}
+
+/* ===== 语言切换 hover 展开（全站通用，首页与关于我们一致）===== */
+.shunchung-header .header-lang {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.shunchung-header .header-lang__menu {
+  display: block;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+  margin-top: 8px;
+  min-width: 180px;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 8px;
+  border: 1px solid rgba(24, 61, 118, .12);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(24, 61, 118, .18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+}
+.shunchung-header .header-lang:hover > .dropdown-menu,
+.shunchung-header .header-lang:focus-within > .dropdown-menu,
+.shunchung-header .header-lang.show > .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.shunchung-header .header-lang__item { padding: 9px 12px; border-radius: 9px; color: #333; font-size: .88rem; }
+.shunchung-header .header-lang__item:hover, .shunchung-header .header-lang__item.is-active { color: #183d76; background: rgba(243, 152, 0, .13); }
+
+/* ===== 导航 logo 高度统一为 35px（与首页一致）===== */
+.shunchung-header .shunchung-logo__img,
+.shunchung-header .mb-logo .shunchung-logo__img {
+  height: 35px !important;
+}
+
+/* ===== 导航栏全站统一（与首页一致）===== */
+.shunchung-header .header-box > .container,
+body.page-home .shunchung-header .header-box > .container,
+body.page-about .shunchung-header .header-box > .container {
+  width: 100% !important;
+  max-width: 1400px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.shunchung-header .header-lang__btn {
+  width: 34px !important;
+  height: 34px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 1. 视频 Banner */
+.sc-about-hero {
+  position: relative;
+  height: 800px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+}
+.sc-about-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.sc-about-hero__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 10, .58) 0%, rgba(10, 10, 10, .34) 45%, rgba(10, 10, 10, .62) 100%);
+}
+.sc-about-hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+  color: #fff;
+}
+.sc-about-hero__eyebrow {
+  display: inline-block;
+  padding: .38rem 1.1rem;
+  border: 1px solid rgba(243, 152, 0, .7);
+  border-radius: 999px;
+  color: #F39800;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.sc-about-hero__title {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 700;
+  letter-spacing: .02em;
+  line-height: 1.12;
+  margin: 0 0 1.3rem;
+}
+.sc-about-hero__sub {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: rgba(255, 255, 255, .86);
+  letter-spacing: .08em;
+  margin: 0;
+}
+
+/* 2. 我们专注于 */
+.sc-about-focus { padding: 6.5rem 0; background: #fff; }
+.sc-about-focus__inner { max-width: 900px; margin: 0 auto; }
+.sc-about-focus__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #0a0a0a;
+  margin: 0 0 2.2rem;
+  position: relative;
+  padding-bottom: 1.2rem;
+}
+.sc-about-focus__title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 56px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #183D76, #F39800);
+}
+.sc-about-focus__body { font-size: 1.05rem; line-height: 2; color: #4a4d55; }
+.sc-about-focus__body p { margin: 0 0 1.3rem; }
+.sc-about-focus__body p:first-child { font-size: 1.22rem; color: #1a1c20; font-weight: 500; }
+
+/* 3. 为什么选择双张（问答） */
+.sc-about-faq { padding: 6.5rem 0; background: #f6f7f9; }
+.sc-about-faq__title,
+.sc-about-sustain__title,
+.sc-about-testimonials__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #0a0a0a;
+  text-align: center;
+  margin: 0 0 .8rem;
+}
+.sc-about-faq__sub,
+.sc-about-sustain__sub,
+.sc-about-testimonials__sub {
+  text-align: center;
+  color: #737373;
+  font-size: 1.02rem;
+  margin: 0 0 3rem;
+}
+.sc-about-faq__list { max-width: 860px; margin: 0 auto; }
+.sc-about-faq__item {
+  background: #fff;
+  border: 1px solid #eceef1;
+  border-radius: 1rem;
+  margin-bottom: .9rem;
+  overflow: hidden;
+  transition: box-shadow .25s ease, border-color .25s ease;
+}
+.sc-about-faq__item[open] { border-color: rgba(24, 61, 118, .25); box-shadow: 0 10px 30px rgba(24, 61, 118, .10); }
+.sc-about-faq__q {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  color: #1a1c20;
+  font-size: 1.05rem;
+  margin: 0;
+}
+.sc-about-faq__q::-webkit-details-marker { display: none; }
+.sc-about-faq__num { color: #F39800; font-weight: 700; font-size: .9rem; }
+.sc-about-faq__icon { margin-left: auto; color: #183D76; font-size: 1.1rem; transition: transform .25s ease; }
+.sc-about-faq__item[open] .sc-about-faq__icon { transform: rotate(45deg); }
+.sc-about-faq__a { padding: 0 1.5rem 1.5rem 3.3rem; color: #5a5e66; line-height: 1.85; font-size: .98rem; }
+
+/* 4. 可持续性 */
+.sc-about-sustain { padding: 6.5rem 0; background: #183D76; color: #fff; }
+.sc-about-sustain__title { color: #fff; }
+.sc-about-sustain__sub { color: rgba(255, 255, 255, .72); }
+.sc-about-sustain__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+.sc-about-sustain__card {
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 1rem;
+  padding: 1.8rem 1.5rem;
+}
+.sc-about-sustain__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: .8rem;
+  background: rgba(243, 152, 0, .16);
+  color: #F39800;
+  font-size: 1.5rem;
+  margin-bottom: 1.1rem;
+}
+.sc-about-sustain__card h3 { font-size: 1.12rem; font-weight: 600; margin: 0 0 .6rem; }
+.sc-about-sustain__card p { font-size: .92rem; line-height: 1.75; color: rgba(255, 255, 255, .78); margin: 0; }
+
+/* 5. 客户评价 */
+.sc-about-testimonials { padding: 6.5rem 0; background: #f6f7f9; }
+.sc-about-testimonials__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.sc-about-tcard {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.9rem;
+  margin: 0;
+  box-shadow: 0 10px 30px rgba(20, 24, 30, .08);
+}
+.sc-about-tcard__head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+.sc-about-tcard__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #183D76, #1A3C6E);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: .04em;
+  flex-shrink: 0;
+}
+.sc-about-tcard__name { font-size: 1.02rem; font-weight: 600; color: #1a1c20; margin: 0 0 .15rem; }
+.sc-about-tcard__role { font-size: .82rem; color: #737373; }
+.sc-about-tcard__quote { font-size: .98rem; line-height: 1.8; color: #4a4d55; margin: 0; }
+
+@media (max-width: 991.98px) {
+  .sc-about-hero { height: 620px; }
+  .sc-about-sustain__grid { grid-template-columns: repeat(2, 1fr); }
+  .sc-about-testimonials__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 767.98px) {
+  .sc-about-hero { height: 520px; }
+  .sc-about-sustain__grid { grid-template-columns: 1fr; }
+  .sc-about-focus, .sc-about-faq, .sc-about-sustain, .sc-about-testimonials { padding: 4rem 0; }
+  .sc-about-faq__a { padding-left: 1.5rem; }
+}
+
+/* ===== 导航栏下滑隐藏/上滑显示（全站一致）===== */
+.site-header,
+.shunchung-header {
+  transition: transform .3s ease;
+  will-change: transform;
+}
+.site-header.header-hidden,
+.shunchung-header.header-hidden {
+  transform: translateY(-130%);
+}

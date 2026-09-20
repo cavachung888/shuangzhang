@@ -1,0 +1,335 @@
+@extends('layouts.app')
+
+@php
+  $isEn = app()->getLocale() === 'en';
+  $office = system_setting_locale('address');
+  $factory = system_setting_locale('factory_address');
+  $ceo = system_setting_locale('ceo');
+@endphp
+
+@section('content')
+
+{{-- ===== 1. HERO ===== --}}
+<section class="sc-hero">
+  <div class="container sc-hero__inner">
+    <h1 class="sc-hero__title">
+      @if($isEn)
+        <span class="sc-hero__title-accent">Precision Shaped Copper</span><br>
+        Strips & Custom Busbars for High-End Manufacturing
+      @else
+        <span class="sc-hero__title-accent">精密异型铜带</span><br>
+        与定制异形铜排 — 服务高端制造
+      @endif
+    </h1>
+    <p class="sc-hero__sub">
+      @if($isEn)
+        C19210 / C11000 grade copper, manufactured by precision cold rolling, stress-free slitting & progressive controlled rolling — serving semiconductor, new energy, connectors, thermal & consumer electronics.
+      @else
+        C19210 / C11000 牌号铜材,采用精密冷轧制、无应力力切、渐进式控轧等核心工艺 — 服务半导体、新能源、连接器、散热与消费电子。
+      @endif
+    </p>
+    <div class="sc-hero__cta">
+      <a href="/solutions" class="btn btn-primary">
+        @if($isEn) EXPLORE SOLUTIONS @else 探索解决方案 @endif
+        <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+      <a href="/contacts" class="btn btn-outline-light">
+        @if($isEn) REQUEST QUOTE @else 获取报价 @endif
+      </a>
+    </div>
+    <div class="sc-hero__chips">
+      <span class="chip">@if($isEn) Precision Cold Rolling @else 精密冷轧制 @endif</span>
+      <span class="chip">@if($isEn) Stress-Free Slitting @else 无应力力切 @endif</span>
+      <span class="chip">@if($isEn) Progressive Controlled Rolling @else 渐进式控轧 @endif</span>
+    </div>
+  </div>
+</section>
+
+{{-- ===== 2. 数据卡 6 块（多色） ===== --}}
+<section class="sc-stats">
+  <div class="container">
+    <div class="sc-stats__grid">
+      <div class="sc-stats__card">
+        <div class="sc-stats__num">8<span class="sc-stats__plus">+</span></div>
+        <div class="sc-stats__label">@if($isEn) YEARS EXPERTISE @else 行业经验 @endif</div>
+      </div>
+      <div class="sc-stats__card">
+        <div class="sc-stats__num">1000<span class="sc-stats__plus">+</span></div>
+        <div class="sc-stats__label">@if($isEn) GLOBAL CLIENTS @else 全球客户 @endif</div>
+      </div>
+      <div class="sc-stats__card">
+        <div class="sc-stats__num">50<span class="sc-stats__plus">+</span></div>
+        <div class="sc-stats__label">@if($isEn) COUNTRIES SERVED @else 出口国家 @endif</div>
+      </div>
+      <div class="sc-stats__card">
+        <div class="sc-stats__num">6<span class="sc-stats__plus">+</span></div>
+        <div class="sc-stats__label">@if($isEn) CORE PROCESSES @else 核心工艺 @endif</div>
+      </div>
+      <div class="sc-stats__card">
+        <div class="sc-stats__num">30<span class="sc-stats__plus">+</span></div>
+        <div class="sc-stats__label">@if($isEn) PATENTS @else 专利技术 @endif</div>
+      </div>
+      <div class="sc-stats__card">
+        <div class="sc-stats__num">100<span class="sc-stats__plus">%</span></div>
+        <div class="sc-stats__label">@if($isEn) QC INSPECTION @else 全检合格率 @endif</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{-- ===== 3. 4 大解决方案 ===== --}}
+<section class="sc-section">
+  <div class="container">
+    <h2 class="module-title">
+      @if($isEn)
+        <span class="gradient-text">Industry Solutions</span>
+      @else
+        <span class="gradient-text">行业解决方案</span>
+      @endif
+    </h2>
+    <p class="module-sub-title">
+      @if($isEn)
+        Tailored copper material solutions for high-end manufacturing industries, with strict tolerance control and stable supply.
+      @else
+        为高端制造业量身打造的铜材解决方案,严苛公差控制与稳定供应。
+      @endif
+    </p>
+
+    <div class="row g-4">
+      @php
+        $solutions = [
+          ['color' => 'blue',   'icon' => 'bi-cpu-fill',          'title_en' => 'Semiconductor & Power Electronics', 'title_zh' => '半导体与功率电子', 'desc_en' => 'High-purity copper for IC substrate, IGBT & power module packaging.', 'desc_zh' => '高纯度铜材,用于 IC 基板、IGBT 与功率模块封装。'],
+          ['color' => 'green',  'icon' => 'bi-lightning-charge',   'title_en' => 'New Energy & Power',                 'title_zh' => '新能源与电力',     'desc_en' => 'EV battery connector, charging copper, photovoltaic ribbon.', 'desc_zh' => '新能源汽车电池连接器、充电铜、光伏焊带。'],
+          ['color' => 'purple', 'icon' => 'bi-plug-fill',          'title_en' => 'Connectors & Relays',                'title_zh' => '连接器与继电器',   'desc_en' => 'High conductivity & fatigue resistance for signal connectors.', 'desc_zh' => '高导电与抗疲劳,适用于信号连接器。'],
+          ['color' => 'yellow', 'icon' => 'bi-fan',                'title_en' => 'Thermal & Consumer Electronics',     'title_zh' => '散热与消费电子',   'desc_en' => 'Heat sink, thermal interface & consumer electronic copper.', 'desc_zh' => '散热片、热界面材料与消费电子铜材。'],
+        ];
+      @endphp
+      @foreach($solutions as $s)
+      <div class="col-md-6 col-lg-3">
+        <a href="/solutions" class="sc-card sc-card--{{ $s['color'] }}">
+          <div class="sc-card__icon"><i class="bi {{ $s['icon'] }}"></i></div>
+          <div class="sc-card__title">{{ $isEn ? $s['title_en'] : $s['title_zh'] }}</div>
+          <p class="sc-card__desc">{{ $isEn ? $s['desc_en'] : $s['desc_zh'] }}</p>
+          <span class="sc-card__more">
+            @if($isEn) Learn More @else 了解详情 @endif <i class="bi bi-arrow-right ms-1"></i>
+          </span>
+        </a>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+
+{{-- ===== 4. 2 大产品（大卡） ===== --}}
+<section class="sc-section sc-section--alt">
+  <div class="container">
+    <h2 class="module-title">
+      @if($isEn)
+        <span class="gradient-text">Copper Products</span>
+      @else
+        <span class="gradient-text">铜材产品</span>
+      @endif
+    </h2>
+    <p class="module-sub-title">
+      @if($isEn)
+        Precision shaped copper coil/strip and custom shaped copper busbar for demanding applications.
+      @else
+        精密异型铜卷/带材与定制异形铜排,满足严苛应用场景。
+      @endif
+    </p>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <a href="/products/precision-strip" class="sc-card sc-card--red" style="padding: 2.4rem 2rem;">
+          <div class="sc-card__icon"><i class="bi bi-stack"></i></div>
+          <div class="sc-card__title" style="font-size: 1.3rem;">
+            @if($isEn) Precision Shaped Copper Coil & Strip @else 精密异型铜卷 / 带材 @endif
+          </div>
+          <p class="sc-card__desc">
+            @if($isEn)
+              C19210 / C11000 / C19400 grades. Custom profile, tight tolerance down to ±0.005mm, thickness 0.05-3.0mm, width 5-600mm.
+            @else
+              C19210 / C11000 / C19400 牌号。异形定制,公差严控至 ±0.005mm,厚度 0.05-3.0mm,宽度 5-600mm。
+            @endif
+          </p>
+          <span class="sc-card__more">
+            @if($isEn) View Specifications @else 查看规格 @endif <i class="bi bi-arrow-right ms-1"></i>
+          </span>
+        </a>
+      </div>
+      <div class="col-md-6">
+        <a href="/products/custom-busbar" class="sc-card sc-card--orange" style="padding: 2.4rem 2rem;">
+          <div class="sc-card__icon"><i class="bi bi-lightning-fill"></i></div>
+          <div class="sc-card__title" style="font-size: 1.3rem;">
+            @if($isEn) Custom Shaped Copper Busbar @else 定制异形铜排 @endif
+          </div>
+          <p class="sc-card__desc">
+            @if($isEn)
+              T2 / C11000 / T2-Ag grades. High conductivity ≥ 99.5% IACS, surface tin/silver/nickel plating optional, OEM/ODM service.
+            @else
+              T2 / C11000 / T2-Ag 牌号。高导电率 ≥ 99.5% IACS,可选镀锡/银/镍表面处理,OEM/ODM 服务。
+            @endif
+          </p>
+          <span class="sc-card__more">
+            @if($isEn) Request Custom Quote @else 定制咨询 @endif <i class="bi bi-arrow-right ms-1"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{-- ===== 5. 5 大生产技术（时间轴） ===== --}}
+<section class="sc-section">
+  <div class="container">
+    <h2 class="module-title">
+      @if($isEn)
+        <span class="gradient-text">Core Manufacturing Technology</span>
+      @else
+        <span class="gradient-text">核心生产技术</span>
+      @endif
+    </h2>
+    <p class="module-sub-title">
+      @if($isEn)
+        5 proprietary processes that ensure precision, stability and zero-defect delivery.
+      @else
+        5 项核心工艺,确保精度、稳定性与零缺陷交付。
+      @endif
+    </p>
+
+    <div class="sc-tech">
+      @php
+        $techs = [
+          ['color' => 'red',    'icon' => '01', 'title_en' => 'Precision Cold Rolling',     'title_zh' => '精密冷轧制',     'desc_en' => '20-high precision cold rolling mill, thickness tolerance ±0.001mm, surface roughness Ra ≤ 0.2μm.', 'desc_zh' => '20 辊精密冷轧机,厚度公差 ±0.001mm,表面粗糙度 Ra ≤ 0.2μm。'],
+          ['color' => 'blue',   'icon' => '02', 'title_en' => 'Stress-Free Slitting',       'title_zh' => '无应力力切',     'desc_en' => 'Special tool design eliminates residual stress, prevents deformation in subsequent processing.', 'desc_zh' => '特殊刀具设计消除残余应力,避免后续加工变形。'],
+          ['color' => 'green',  'icon' => '03', 'title_en' => 'Progressive Controlled Rolling','title_zh' => '渐进式控轧',     'desc_en' => 'Multi-pass gradual deformation, refined grain structure, improved mechanical consistency.', 'desc_zh' => '多道次渐进变形,细化晶粒组织,提升机械性能一致性。'],
+          ['color' => 'purple', 'icon' => '04', 'title_en' => 'Engineering Design & Optimization','title_zh' => '工程设计与优化', 'desc_en' => 'Application-specific design support, FEM simulation, rapid prototyping.', 'desc_zh' => '应用专属设计支持,FEM 仿真模拟,快速打样。'],
+          ['color' => 'yellow', 'icon' => '05', 'title_en' => 'Quality Assurance',          'title_zh' => '质量保证',       'desc_en' => 'ISO 9001 / IATF 16949 certified, 100% online inspection & lab testing.', 'desc_zh' => 'ISO 9001 / IATF 16949 认证,100% 在线全检与实验室测试。'],
+        ];
+      @endphp
+      @foreach($techs as $t)
+      <div class="sc-tech__row sc-tech__row--{{ $t['color'] }}">
+        <div class="sc-tech__num">{{ $t['icon'] }}</div>
+        <div class="sc-tech__body">
+          <div class="sc-tech__title">{{ $isEn ? $t['title_en'] : $t['title_zh'] }}</div>
+          <div class="sc-tech__desc">{{ $isEn ? $t['desc_en'] : $t['desc_zh'] }}</div>
+        </div>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+
+{{-- ===== 6. 关于我们：CEO + 双地址 ===== --}}
+<section class="sc-section sc-section--dark">
+  <div class="container">
+    <h2 class="module-title">
+      @if($isEn)
+        <span class="gradient-text-yellow">About Shunchung</span>
+      @else
+        <span class="gradient-text-yellow">关于双张</span>
+      @endif
+    </h2>
+    <p class="module-sub-title">
+      @if($isEn)
+        Shanghai-headquartered, Jiangxi-manufactured — dual-base operation serving global B2B customers.
+      @else
+        上海总部、江西制造 — 双基地运营,服务全球 B2B 客户。
+      @endif
+    </p>
+
+    <div class="sc-about">
+      <div class="sc-about__visual">
+        <div class="sc-about__ceo-name">{{ $ceo ?: '张苗 CEO' }}</div>
+        <div class="sc-about__ceo-title">
+          @if($isEn) Shanghai Shunchung New Material Technology Co., Ltd. @else 上海双张新材料科技有限公司 @endif
+        </div>
+        <p class="sc-about__quote">
+          @if($isEn)
+            "Specialized in precision shaped copper materials, we deliver high-purity, tight-tolerance, and high-consistency copper solutions to global high-end manufacturers."
+          @else
+            "专注精密异型铜材,为全球高端制造商提供高纯度、严公差、高一致性的铜材解决方案。"
+          @endif
+        </p>
+      </div>
+
+      <div class="sc-about__info">
+        @if($office)
+        <div class="sc-about__addr">
+          <i class="bi bi-geo-alt-fill"></i>
+          <div>
+            <strong>@if($isEn) OFFICE @else 办公地址 @endif</strong>
+            <span>{{ $office }}</span>
+          </div>
+        </div>
+        @endif
+        @if($factory)
+        <div class="sc-about__addr">
+          <i class="bi bi-building-fill"></i>
+          <div>
+            <strong>@if($isEn) FACTORY @else 工厂地址 @endif</strong>
+            <span>{{ $factory }}</span>
+          </div>
+        </div>
+        @endif
+        <div class="sc-about__addr">
+          <i class="bi bi-telephone-fill"></i>
+          <div>
+            <strong>@if($isEn) CONTACT @else 联系方式 @endif</strong>
+            <span>
+              {{ system_setting('telephone') }}<br>
+              <a href="mailto:{{ system_setting('email') }}" style="color: #b73a21;">{{ system_setting('email') }}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{-- ===== 7. 客户 logo 墙 ===== --}}
+<section class="sc-section">
+  <div class="container">
+    <h2 class="module-title">
+      @if($isEn)
+        <span class="gradient-text-green">Trusted by Global Manufacturers</span>
+      @else
+        <span class="gradient-text-green">服务全球高端制造客户</span>
+      @endif
+    </h2>
+    <p class="module-sub-title">
+      @if($isEn)
+        Long-term partners across semiconductor, new energy, connector, thermal and consumer electronics industries.
+      @else
+        长期合作伙伴遍及半导体、新能源、连接器、散热与消费电子行业。
+      @endif
+    </p>
+
+    <div class="sc-clients">
+      @for($i = 1; $i <= 12; $i++)
+        <div class="sc-clients__item">@if($isEn) CLIENT LOGO @else 客户 LOGO @endif {{ $i }}</div>
+      @endfor
+    </div>
+  </div>
+</section>
+
+{{-- ===== 8. CTA ===== --}}
+<section class="sc-cta">
+  <div class="container sc-cta__inner">
+    <h2>
+      @if($isEn) Need a Custom Copper Solution? @else 需要定制铜材方案？ @endif
+    </h2>
+    <p>
+      @if($isEn)
+        Send us your drawing or specification, our engineering team will respond within 24 hours.
+      @else
+        发送您的图纸或规格,我们的工程师团队将在 24 小时内回复。
+      @endif
+    </p>
+    <a href="/contacts" class="btn btn-light">
+      @if($isEn) CONTACT US NOW @else 立即联系我们 @endif <i class="bi bi-arrow-right ms-2"></i>
+    </a>
+  </div>
+</section>
+
+@endsection

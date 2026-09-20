@@ -1,0 +1,46 @@
+/.phpunit.cache
+/node_modules
+/public/hot
+/public/storage
+/public/solutions
+/public/themes
+/public/mix-manifest.json
+/public/build
+/storage/*.key
+/storage/installed
+/package-lock.json
+/vendor
+.playwright-mcp/
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.claude
+/.fleet
+/.idea
+/.vscode
+docker-compose.yml
+.DS_Store
+/storage/certs/
+
+# 本地运维/敏感文件（不入库）
+.env.rename-*
+.env.*.bak
+t2.php
+diag.php
+import_xlsx.php
+
+# 前端改动的历史备份/临时文件
+innopacks/front/resources/**/*bak*
+innopacks/front/resources/**/*.prehero2
+innopacks/front/resources/**/*.tmp
+
+# 整个 innopacks 下的备份/临时文件
+innopacks/**/*bak*
+innopacks/**/*.prehero2
+innopacks/**/*.tmp

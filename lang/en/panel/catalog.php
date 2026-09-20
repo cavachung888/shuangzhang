@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright (c) Since 2024 InnoCMS - All Rights Reserved
+ *
+ * @link       https://www.innocms.com
+ * @author     InnoCMS <team@innoshop.com>
+ * @license    https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ */
+
+return [
+    'list'           => 'Catalog List',
+    'create'         => 'New Catalog',
+    'title'          => 'Title',
+    'summary'        => 'Summary',
+    'content_tab'    => 'Content',
+    'extra_tab'      => 'Extra Info',
+    'parent'         => 'Parent Catalog',
+    'top_level'      => 'Top Level',
+    'parent_invalid' => 'Please select a valid parent catalog',
+];

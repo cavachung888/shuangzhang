@@ -1,0 +1,114 @@
+@php
+  $isEn = app()->getLocale() === 'en';
+  $storeName = system_setting_locale('store_name') ?? 'Shunchung';
+  $phone = system_setting('telephone');
+  $email = system_setting('email');
+  $officeAddress = system_setting_locale('address');
+  $factoryAddress = system_setting_locale('factory_address');
+  $website = system_setting('website');
+  $wechat = system_setting('wechat');
+  $ceo = system_setting_locale('ceo');
+  $hours = system_setting_locale('business_hours');
+@endphp
+
+<footer class="footer-box shunchung-footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="row">
+
+        {{-- 1. 公司信息 + CEO --}}
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <div class="footer-logo shunchung-logo">
+            <img src="{{ image_origin(system_setting('front_logo', 'images/shunchung-logo.svg')) }}" class="shunchung-logo__img shunchung-logo__img--light" alt="Shunchung">
+          </div>
+          @if($ceo)
+            <div class="footer-ceo">
+              <span class="footer-ceo__name">{{ $ceo }}</span>
+            </div>
+          @endif
+          <p class="footer-about">
+            @if($isEn)
+              {{ system_setting_locale('store_description') }}
+            @else
+              {{ system_setting_locale('store_description') }}
+            @endif
+          </p>
+          <div class="footer-social">
+            @if($website)
+              <a href="https://{{ $website }}" target="_blank" rel="noopener" title="Website"><i class="bi bi-globe"></i></a>
+            @endif
+            @if($wechat)
+              <a href="javascript:void(0)" title="WeChat: {{ $wechat }}"><i class="bi bi-wechat"></i></a>
+            @endif
+            <a href="mailto:{{ $email }}" title="Email"><i class="bi bi-envelope-fill"></i></a>
+            <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone ?? '') }}" title="Phone"><i class="bi bi-telephone-fill"></i></a>
+          </div>
+        </div>
+
+        {{-- 2. 解决方案 + 产品 --}}
+        <div class="col-6 col-lg-2 mb-4 mb-lg-0">
+          <div class="footer-title">
+            @if($isEn) SOLUTIONS @else 解决方案 @endif
+          </div>
+          <ul class="footer-links">
+            <li><a href="/solutions/semiconductor">@if($isEn) Semiconductor @else 半导体与功率电子 @endif</a></li>
+            <li><a href="/solutions/new-energy">@if($isEn) New Energy @else 新能源与电力 @endif</a></li>
+            <li><a href="/solutions/connectors">@if($isEn) Connectors @else 连接器与继电器 @endif</a></li>
+            <li><a href="/solutions/thermal">@if($isEn) Thermal @else 散热与消费电子 @endif</a></li>
+          </ul>
+        </div>
+
+        {{-- 3. 产品 + 技术 --}}
+        <div class="col-6 col-lg-2 mb-4 mb-lg-0">
+          <div class="footer-title">
+            @if($isEn) PRODUCTS @else 产品与技术 @endif
+          </div>
+          <ul class="footer-links">
+            <li><a href="/products/precision-strip">@if($isEn) Precision Strip @else 精密异型铜带 @endif</a></li>
+            <li><a href="/products/custom-busbar">@if($isEn) Custom Busbar @else 定制异形铜排 @endif</a></li>
+            <li><a href="/tech/cold-rolling">@if($isEn) Cold Rolling @else 精密冷轧制 @endif</a></li>
+            <li><a href="/tech/quality">@if($isEn) Quality @else 质量保证 @endif</a></li>
+          </ul>
+        </div>
+
+        {{-- 4. 联系我们：双地址 --}}
+        <div class="col-lg-4">
+          <div class="footer-title">
+            @if($isEn) CONTACT US @else 联系我们 @endif
+          </div>
+          <ul class="footer-contact">
+            @if($phone)
+              <li><i class="bi bi-telephone-fill"></i> <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}">{{ $phone }}</a></li>
+            @endif
+            @if($email)
+              <li><i class="bi bi-envelope-fill"></i> <a href="mailto:{{ $email }}">{{ $email }}</a></li>
+            @endif
+            @if($website)
+              <li><i class="bi bi-globe"></i> <a href="https://{{ $website }}" target="_blank" rel="noopener">{{ $website }}</a></li>
+            @endif
+            @if($officeAddress)
+              <li><i class="bi bi-geo-alt-fill"></i> <strong>@if($isEn) Office: @else 办公：@endif</strong> {{ $officeAddress }}</li>
+            @endif
+            @if($factoryAddress)
+              <li><i class="bi bi-building-fill"></i> <strong>@if($isEn) Factory: @else 工厂：@endif</strong> {{ $factoryAddress }}</li>
+            @endif
+            @if($hours)
+              <li><i class="bi bi-clock-fill"></i> {{ $hours }}</li>
+            @endif
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom__row footer-bottom__row--legal">
+        <div class="copyright-text">
+          &copy; {{ date('Y') }} {{ $storeName }}. @if($isEn) All Rights Reserved. @else 版权所有。@endif
+        </div>
+        <div class="powered-by">
+          @if($isEn) Precision Copper Solutions by @else 精密铜材专家 @endif {{ $storeName }}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

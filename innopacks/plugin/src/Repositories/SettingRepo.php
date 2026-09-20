@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright (c) Since 2024 InnoCMS - All Rights Reserved
+ *
+ * @link       https://www.innocms.com
+ * @author     InnoCMS <team@innoshop.com>
+ * @license    https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ */
+
+namespace InnoCMS\Plugin\Repositories;
+
+use InnoCMS\Common\Repositories\SettingRepo as CommonSettingRepo;
+use InnoCMS\Plugin\Models\Setting;
+
+class SettingRepo extends CommonSettingRepo
+{
+    /**
+     * Get plugin active field.
+     *
+     * @return array
+     */
+    public function getPluginActiveField(): array
+    {
+        return [
+            'name'     => 'active',
+            'label'    => trans('panel/common.status'),
+            'type'     => 'bool',
+            'required' => true,
+        ];
+    }
+
+    /**
+     * Get all fields by plugin code.
+     *
+     * @param  $pluginCode
+     * @return mixed
+     */
+    public function getPluginFields($pluginCode): mixed
+    {
+        return Setting::query()
+            ->where('space', $pluginCode)
+            ->get()
+            ->keyBy('name');
+    }
+}

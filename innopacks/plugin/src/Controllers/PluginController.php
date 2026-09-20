@@ -1,0 +1,182 @@
+<?php
+/**
+ * Copyright (c) Since 2024 InnoCMS - All Rights Reserved
+ *
+ * @link       https://www.innocms.com
+ * @author     InnoCMS <team@innoshop.com>
+ * @license    https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ */
+
+namespace InnoCMS\Plugin\Controllers;
+
+use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use InnoCMS\Plugin\Repositories\SettingRepo;
+use InnoCMS\Plugin\Resources\PluginResource;
+use InnoCMS\Plugin\Services\PluginService;
+use Throwable;
+
+class PluginController
+{
+    /**
+     * Get all plugins.
+     *
+     * @return mixed
+     */
+    public function index(): mixed
+    {
+        $plugins = app('plugin')->getPlugins();
+
+        $data = [
+            'plugins' => array_values(PluginResource::collection($plugins)->jsonSerialize()),
+        ];
+
+        return view('plugin::plugins.index', $data);
+    }
+
+    /**
+     * @param  Request  $request
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
+    {
+        try {
+            $code   = $request->get('code');
+            $plugin = app('plugin')->getPluginOrFail($code);
+            PluginService::getInstance()->installPlugin($plugin);
+            $data = $this->getPluginResourceData($code, true, true);
+
+            return json_success(trans('panel/common.saved_success'), $data);
+        } catch (Exception $e) {
+            return json_fail($e->getMessage());
+        }
+    }
+
+    /**
+     * @param  $code
+     * @return JsonResponse
+     */
+    public function destroy($code): JsonResponse
+    {
+        try {
+            $plugin = app('plugin')->getPluginOrFail($code);
+            PluginService::getInstance()->uninstallPlugin($plugin);
+            $data = $this->getPluginResourceData($code, false, false);
+
+            return json_success(trans('panel/common.deleted_success'), $data);
+        } catch (Exception $e) {
+            return json_fail($e->getMessage());
+        }
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  $code
+     * @return View
+     * @throws Exception
+     */
+    public function edit(Request $request, $code): View
+    {
+        try {
+            $plugin = app('plugin')->getPluginOrFail($code);
+            $view   = $plugin->getFieldView();
+            $data   = [
+                'view'   => $view,
+                'plugin' => $plugin,
+                'fields' => $plugin->getFields(),
+            ];
+
+            return view('plugin::plugins.form', $data);
+        } catch (Exception $e) {
+            $plugin = app('plugin')->getPlugin($code);
+            $data   = [
+                'error'       => $e->getMessage(),
+                'plugin_code' => $code,
+                'plugin'      => $plugin,
+            ];
+
+            return view('plugin::plugins.error', $data);
+        }
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  string  $code
+     * @return mixed
+     * @throws Throwable
+     */
+    public function update(Request $request, string $code): mixed
+    {
+        $fields = $request->all();
+        $plugin = app('plugin')->getPluginOrFail($code);
+        if (method_exists($plugin, 'validateFields')) {
+            $validator = $plugin->validateFields($fields);
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+        }
+        SettingRepo::getInstance()->updateValues($fields, $code);
+        $currentUrl = panel_route('plugins.edit', [$code]);
+
+        return redirect($currentUrl)->with('success', trans('panel/common.updated_success'));
+    }
+
+    /**
+     * @param  Request  $request
+     * @return JsonResponse
+     */
+    public function runSeeders(Request $request): JsonResponse
+    {
+        try {
+            $code      = $request->get('code');
+            $clearData = (bool) $request->get('clear_data', false);
+            $plugin    = app('plugin')->getPluginOrFail($code);
+            PluginService::getInstance()->runSeeders($plugin, $clearData);
+
+            return json_success(trans('panel/common.saved_success'));
+        } catch (Exception $e) {
+            return json_fail($e->getMessage());
+        }
+    }
+
+    /**
+     * @param  Request  $request
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request): JsonResponse
+    {
+        try {
+            $code    = $request->get('code');
+            $enabled = $request->get('enabled');
+            app('plugin')->getPluginOrFail($code);
+            SettingRepo::getInstance()->updatePluginValue($code, 'active', $enabled);
+            $data = $this->getPluginResourceData($code, true, (bool) $enabled);
+
+            return json_success(trans('panel/common.updated_success'), $data);
+        } catch (Exception $e) {
+            return json_fail($e->getMessage());
+        } catch (Throwable $e) {
+            return json_fail($e->getMessage());
+        }
+    }
+
+    /**
+     * Get plugin resource data with explicit installed/enabled state.
+     *
+     * @param  string  $code
+     * @param  bool  $installed
+     * @param  bool  $enabled
+     * @return array
+     */
+    private function getPluginResourceData(string $code, bool $installed, bool $enabled): array
+    {
+        $plugin            = app('plugin')->getPlugin($code);
+        $data              = $plugin ? (new PluginResource($plugin))->jsonSerialize() : [];
+        $data['installed'] = $installed;
+        $data['enabled']   = $enabled;
+
+        return $data;
+    }
+}

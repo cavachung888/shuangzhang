@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright (c) Since 2024 InnoCMS - All Rights Reserved
+ *
+ * @link       https://www.innocms.com
+ * @author     InnoCMS <team@innoshop.com>
+ * @license    https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ */
+
+namespace InnoCMS\Plugin\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use InnoCMS\Plugin\Core\Plugin;
+
+/**
+ * @mixin Plugin
+ */
+class PluginResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  Request  $request
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray($request): array
+    {
+        return [
+            'code'        => $this->getCode(),
+            'name'        => $this->getLocaleName(),
+            'description' => $this->getLocaleDescription(),
+            'path'        => $this->getPath(),
+            'version'     => $this->getVersion(),
+            'priority'    => $this->getPriority(),
+            'dir_name'    => $this->getDirname(),
+            'type'        => $this->getType(),
+            'author'      => $this->getAuthor(),
+            'enabled'     => $this->getEnabled(),
+            'installed'   => $this->checkInstalled(),
+            'edit_url'    => $this->getEditUrl(),
+            'icon'        => plugin_resize($this->getCode(), $this->getIcon()),
+            'type_format' => trans('admin/plugin.'.$this->getType()),
+        ];
+    }
+}

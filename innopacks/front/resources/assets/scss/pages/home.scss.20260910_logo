@@ -1,0 +1,721 @@
+// Shunchung 双张新材 — 主页样式
+// 现代风：红橙渐变 + 多色装饰 + 玻璃感 + 渐变文字
+
+body.page-home {
+  background: #fff;
+}
+
+// ===== 通用工具类 =====
+
+// 渐变文字
+.gradient-text {
+  background: linear-gradient(135deg, $primary 0%, $primary-2 50%, $accent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, $color-blue 0%, $color-blue-light 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.gradient-text-green {
+  background: linear-gradient(135deg, $color-green 0%, $color-green-light 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.gradient-text-purple {
+  background: linear-gradient(135deg, $color-purple 0%, $color-purple-light 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.gradient-text-yellow {
+  background: linear-gradient(135deg, $color-yellow 0%, $color-yellow-light 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+// 渐变背景
+.gradient-primary {
+  background: linear-gradient(135deg, $primary 0%, $primary-2 100%);
+}
+.gradient-warm {
+  background: linear-gradient(135deg, $primary 0%, $accent 50%, $accent-2 100%);
+}
+.gradient-cool {
+  background: linear-gradient(135deg, $color-blue 0%, $color-cyan 100%);
+}
+
+// 玻璃感
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+// ===== 1. Hero（黑底+红橙光晕+渐变文字标题） =====
+.sc-hero {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(232, 70, 24, .35) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(255, 138, 0, .25) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 50%, rgba(183, 58, 33, .2) 0%, transparent 60%),
+    #0a0a0a;
+  color: #fff;
+  padding: 9rem 0 6rem;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 40px;
+    align-items: center;
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__left { min-width: 0; }
+
+  &__right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 460px;
+  }
+
+  &__3d {
+    width: 100%;
+    height: 460px;
+    max-width: 560px;
+    --poster-color: transparent;
+    --progress-bar-color: rgba(232, 70, 24, .8);
+  }
+
+  &__3d-hint {
+    margin-top: 14px;
+    font-size: .82rem;
+    letter-spacing: .12em;
+    color: rgba(255, 255, 255, .55);
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-size: 3.6rem;
+    font-weight: 800;
+    line-height: 1.15;
+    max-width: 820px;
+    margin-bottom: 1.4rem;
+    letter-spacing: -.02em;
+
+    @media (max-width: 768px) { font-size: 2.1rem; }
+  }
+
+  &__title-accent {
+    background: linear-gradient(135deg, #e84618 0%, #FF8A00 50%, #FFB800 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+
+  &__sub {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,.85);
+    max-width: 720px;
+    margin-bottom: 2.5rem;
+    @media (max-width: 768px) { font-size: .95rem; }
+  }
+
+  &__cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+
+    .btn { padding: 14px 32px; font-weight: 700; letter-spacing: .04em; border-radius: 30px; }
+    .btn-primary {
+      background: linear-gradient(135deg, $primary 0%, $primary-2 100%);
+      border: 0;
+      box-shadow: 0 10px 26px rgba(232, 70, 24, .35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(232, 70, 24, .45); }
+    .btn-outline-light { border-width: 2px; }
+  }
+
+  &__chips {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    .chip {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-size: .85rem;
+      color: rgba(255,255,255,.92);
+    }
+  }
+}
+
+// ===== 2. 数据卡 6 块（多色） =====
+.sc-stats {
+  background: #fff;
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid #f0f0f0;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+    @media (max-width: 992px) { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 576px) { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  &__card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 18px;
+    padding: 1.6rem 1.2rem;
+    text-align: center;
+    transition: all .25s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--stat-color, #{$primary});
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .08);
+    }
+
+    // 6 种色（循环用 :nth-child）
+    &:nth-child(1) { --stat-color: #{$primary}; }
+    &:nth-child(2) { --stat-color: #{$color-blue}; }
+    &:nth-child(3) { --stat-color: #{$color-green}; }
+    &:nth-child(4) { --stat-color: #{$color-purple}; }
+    &:nth-child(5) { --stat-color: #{$color-yellow}; }
+    &:nth-child(6) { --stat-color: #{$color-pink}; }
+  }
+
+  &__num {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--stat-color, #{$primary});
+    margin-bottom: .5rem;
+    @media (max-width: 768px) { font-size: 2rem; }
+  }
+
+  &__plus {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--stat-color, #{$primary});
+  }
+
+  &__label {
+    font-size: .82rem;
+    font-weight: 600;
+    color: $text-muted;
+    letter-spacing: .04em;
+  }
+}
+
+// ===== 3. 板块通用样式 =====
+.sc-section {
+  padding: 5rem 0;
+  @media (max-width: 768px) { padding: 3rem 0; }
+  &--alt { background: linear-gradient(180deg, #FAFAFA 0%, #F0F2F5 100%); }
+  &--dark {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: #fff;
+    .module-title { color: #fff; }
+    .module-sub-title { color: rgba(255,255,255,.7); }
+  }
+}
+
+.module-title {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  position: relative;
+  color: $text-strong;
+  letter-spacing: -.01em;
+  @media (max-width: 768px) { font-size: 1.6rem; }
+}
+
+.module-sub-title {
+  text-align: center;
+  font-size: 1.05rem;
+  color: $text-muted;
+  margin: 0 auto 3.2rem;
+  line-height: 1.7;
+  max-width: 760px;
+  @media (max-width: 768px) { font-size: .9rem; margin-bottom: 2rem; }
+}
+
+// ===== 4. 解决方案 / 产品卡 =====
+.sc-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 20px;
+  padding: 2rem 1.5rem 1.5rem;
+  height: 100%;
+  text-decoration: none;
+  color: $text-strong;
+  position: relative;
+  overflow: hidden;
+  transition: all .3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: var(--card-color, #{$primary});
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 44px rgba(0, 0, 0, .1);
+    border-color: transparent;
+    .sc-card__icon { transform: scale(1.08) rotate(-3deg); }
+    .sc-card__more { color: var(--card-color, #{$primary}); gap: 8px; }
+    &::before { transform: scaleX(1); }
+  }
+
+  &__icon {
+    width: 64px; height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--card-color, #{$primary}) 0%, var(--card-color-light, #{$primary-2}) 100%);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem;
+    margin-bottom: 1.3rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+    transition: all .3s ease;
+  }
+
+  &__title {
+    font-size: 1.1rem; font-weight: 700;
+    margin-bottom: .7rem; line-height: 1.4;
+  }
+
+  &__desc {
+    font-size: .88rem; color: $text-muted;
+    line-height: 1.7;
+    flex: 1; margin-bottom: 1.2rem;
+  }
+
+  &__more {
+    color: $text-muted; font-weight: 600; font-size: .88rem;
+    display: inline-flex; align-items: center; gap: 4px;
+    transition: all .2s;
+  }
+}
+
+// 6 大色系（用在 --card-color 变量上）
+.sc-card--red    { --card-color: #{$primary};      --card-color-light: #{$primary-2}; }
+.sc-card--blue   { --card-color: #{$color-blue};  --card-color-light: #{$color-blue-light}; }
+.sc-card--green  { --card-color: #{$color-green}; --card-color-light: #{$color-green-light}; }
+.sc-card--purple { --card-color: #{$color-purple};--card-color-light: #{$color-purple-light}; }
+.sc-card--yellow { --card-color: #{$color-yellow};--card-color-light: #{$color-yellow-light}; }
+.sc-card--pink   { --card-color: #{$color-pink};  --card-color-light: #f472b6; }
+.sc-card--orange { --card-color: #{$accent};      --card-color-light: #{$accent-2}; }
+
+// ===== 5. 技术工艺时间轴 =====
+.sc-tech {
+  display: grid; gap: 16px;
+  &__row {
+    display: flex; align-items: stretch; gap: 16px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem;
+    transition: all .3s ease;
+    position: relative; overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 5px;
+      background: var(--row-color, #{$primary});
+    }
+
+    &:hover {
+      transform: translateX(6px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .08);
+    }
+  }
+
+  &__num {
+    width: 48px; height: 48px;
+    flex: 0 0 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--row-color, #{$primary}) 0%, var(--row-color-light, #{$primary-2}) 100%);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 800;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .12);
+  }
+
+  &__body { flex: 1; }
+  &__title { font-size: 1.05rem; font-weight: 700; margin-bottom: .35rem; }
+  &__desc { font-size: .88rem; color: $text-muted; line-height: 1.7; }
+}
+
+// 5 种技术色
+.sc-tech__row--red    { --row-color: #{$primary};      --row-color-light: #{$primary-2}; }
+.sc-tech__row--blue   { --row-color: #{$color-blue};  --row-color-light: #{$color-blue-light}; }
+.sc-tech__row--green  { --row-color: #{$color-green}; --row-color-light: #{$color-green-light}; }
+.sc-tech__row--purple { --row-color: #{$color-purple};--row-color-light: #{$color-purple-light}; }
+.sc-tech__row--yellow { --row-color: #{$color-yellow};--row-color-light: #{$color-yellow-light}; }
+
+// ===== 6. 关于我们：双地址 + CEO =====
+.sc-about {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px;
+  align-items: stretch;
+  @media (max-width: 992px) { grid-template-columns: 1fr; }
+
+  &__visual {
+    background: linear-gradient(135deg, $primary 0%, $primary-2 50%, $accent 100%);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    color: #fff;
+    position: relative; overflow: hidden;
+
+    &::before {
+      content: ''; position: absolute;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .12);
+      top: -100px; right: -100px;
+    }
+    &::after {
+      content: ''; position: absolute;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .08);
+      bottom: -60px; left: 30%;
+    }
+  }
+
+  &__ceo-name {
+    font-size: 1.6rem; font-weight: 800;
+    margin-bottom: .3rem; position: relative; z-index: 2;
+  }
+  &__ceo-title {
+    font-size: 1rem; color: rgba(255,255,255,.85);
+    position: relative; z-index: 2;
+    margin-bottom: 1.5rem;
+  }
+  &__quote {
+    font-size: 1.05rem; line-height: 1.8;
+    color: rgba(255,255,255,.95);
+    position: relative; z-index: 2;
+    font-style: italic;
+  }
+
+  &__info {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+
+  &__addr {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem;
+    display: flex; align-items: flex-start; gap: 14px;
+    transition: all .25s;
+
+    &:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,.06); }
+
+    i {
+      font-size: 1.4rem;
+      color: $primary;
+      margin-top: 2px;
+      flex: 0 0 auto;
+    }
+    strong { display: block; font-size: .9rem; color: $primary; margin-bottom: .25rem; letter-spacing: .04em; }
+    span { font-size: .92rem; color: $text-body; line-height: 1.6; }
+  }
+}
+
+// ===== 7. CTA 联系条 =====
+.sc-cta {
+  background: linear-gradient(135deg, $primary 0%, $primary-2 100%);
+  color: #fff;
+  padding: 5rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: ''; position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .08);
+    top: -200px; left: -100px;
+  }
+  &::after {
+    content: ''; position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .06);
+    bottom: -150px; right: -80px;
+  }
+
+  &__inner { position: relative; z-index: 2; }
+
+  h2 {
+    font-size: 2.4rem; font-weight: 800;
+    margin-bottom: 1rem; letter-spacing: -.01em;
+    @media (max-width: 768px) { font-size: 1.6rem; }
+  }
+  p {
+    color: rgba(255, 255, 255, .92);
+    max-width: 640px; margin: 0 auto 2rem;
+    font-size: 1.05rem;
+  }
+  .btn-light {
+    background: #fff; color: $primary;
+    padding: 14px 36px; font-weight: 700;
+    border-radius: 30px; letter-spacing: .04em;
+    border: 0;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .15);
+  }
+  .btn-light:hover {
+    background: $accent; color: #fff;
+    transform: translateY(-2px);
+  }
+}
+
+// ===== 8. 客户 logo 墙 =====
+.sc-clients {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  @media (max-width: 992px) { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 576px) { grid-template-columns: repeat(2, 1fr); }
+
+  &__item {
+    background: #fff;
+    border: 1px dashed #d0d0d0;
+    border-radius: 12px;
+    aspect-ratio: 16 / 9;
+    display: flex; align-items: center; justify-content: center;
+    color: #aaa; font-size: .8rem; font-weight: 600;
+    transition: all .2s;
+    &:hover { border-color: $primary; color: $primary; }
+  }
+}
+
+// ===== 9. Header 覆写（白底现代风） =====
+.shunchung-header {
+  .header-topbar {
+    background-color: $topbar-bg;
+    color: rgba(255, 255, 255, .85);
+    height: 40px;
+    display: none;
+    @media (min-width: 992px) { display: flex; align-items: center; }
+
+    a { color: rgba(255, 255, 255, .85); }
+    i { color: $primary-2; }
+  }
+
+  .header-box {
+    background-color: #fff;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .04);
+  }
+}
+
+.shunchung-logo {
+  &__link { display: inline-flex; align-items: center; text-decoration: none; }
+  &__img { height: 44px; width: auto; @media (max-width: 992px) { height: 36px; } }
+  &__img--light { filter: brightness(0) invert(1); }
+}
+
+.shunchung-header .navbar .nav-link {
+  color: $text-strong !important;
+  font-weight: 600;
+  font-size: .95rem;
+  letter-spacing: .02em;
+  padding: .5rem 1rem !important;
+  margin: 0 .2rem;
+  position: relative;
+  transition: color .2s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%; bottom: -2px;
+    transform: translateX(-50%);
+    width: 0; height: 3px;
+    background: linear-gradient(90deg, $primary 0%, $primary-2 100%);
+    border-radius: 2px;
+    transition: width .25s ease;
+  }
+
+  &:hover, &.active {
+    color: $primary !important;
+    &::after { width: 80%; }
+  }
+}
+
+.shunchung-header .header-menu .btn.btn-accent {
+  background: linear-gradient(135deg, $primary 0%, $primary-2 100%);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 10px 22px;
+  border-radius: 24px;
+  border: 0;
+  box-shadow: 0 6px 18px rgba(232, 70, 24, .25);
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(232, 70, 24, .35);
+  }
+}
+
+// mega panel（白底 + 阴影 + 圆角）
+.shunchung-header .has-mega .mega-panel {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .12);
+  padding: 10px 0;
+  min-width: 240px;
+  li { margin: 0; }
+  .mega-panel__item {
+    padding: 9px 18px;
+    font-size: .9rem;
+    color: $text-body;
+    transition: all .15s;
+    &:hover {
+      background: linear-gradient(90deg, rgba(232, 70, 24, .08) 0%, transparent 100%);
+      color: $primary;
+      padding-left: 22px;
+    }
+  }
+}
+
+.shunchung-header #mobile-menu-offcanvas {
+  background: #fff;
+  .offcanvas-header { background: linear-gradient(135deg, $primary 0%, $primary-2 100%); }
+  .mb-logo .shunchung-logo__img { height: 36px; filter: brightness(0) invert(1); }
+  .nav-item { border-bottom-color: #f0f0f0 !important; }
+  .nav-link { color: $text-strong !important; font-weight: 600; }
+  .nav-link:hover, .nav-link.active { color: $primary !important; background: rgba(232, 70, 24, .06) !important; }
+  .sub-menu .nav-link { color: $text-muted !important; }
+}
+
+// ===== 10. Footer 覆写 =====
+.shunchung-footer.footer-box {
+  background: $footer-bg;
+  color: rgba(255, 255, 255, .75);
+
+  .footer-logo { margin-bottom: 1rem; }
+
+  .footer-ceo {
+    background: linear-gradient(135deg, rgba(232, 70, 24, .12) 0%, rgba(255, 138, 0, .08) 100%);
+    border: 1px solid rgba(232, 70, 24, .25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin: .8rem 0 1.2rem;
+    display: inline-block;
+    &__name {
+      color: $primary-2;
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: .04em;
+    }
+  }
+
+  .footer-about { color: rgba(255, 255, 255, .65); font-size: 14px; line-height: 1.85; }
+
+  .footer-social {
+    display: flex; gap: 10px; margin-top: 1.2rem;
+    a {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .06);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255, 255, 255, .75);
+      transition: all .2s;
+      &:hover {
+        background: linear-gradient(135deg, $primary 0%, $primary-2 100%);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .footer-title {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    letter-spacing: .05em;
+  }
+
+  .footer-links {
+    list-style: none; padding: 0; margin: 0;
+    li { margin-bottom: 9px; }
+    a {
+      color: rgba(255, 255, 255, .65);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: all .2s;
+      &:hover {
+        color: $primary-2;
+        padding-left: 5px;
+      }
+    }
+  }
+
+  .footer-contact {
+    list-style: none; padding: 0; margin: 0;
+    li {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 12px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .75);
+      i {
+        color: $primary-2;
+        margin-top: 3px;
+        flex: 0 0 auto;
+      }
+      a { color: rgba(255, 255, 255, .75); text-decoration: none; &:hover { color: $primary-2; } }
+      strong { color: #fff; font-weight: 600; }
+    }
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    padding: 18px 0;
+    font-size: 13px;
+  }
+}

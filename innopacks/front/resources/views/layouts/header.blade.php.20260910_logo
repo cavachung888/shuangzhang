@@ -1,0 +1,191 @@
+@php
+  $allLocales = locales();
+  $currentLocaleCode = front_locale_code();
+  $currentLocale = $allLocales->firstWhere('code', $currentLocaleCode);
+  $currentLocaleName = $currentLocale?->name ?? $currentLocaleCode;
+  $contactUrl = has_front_route('contacts.index') ? front_route('contacts.index') : null;
+  $isEn = app()->getLocale() === 'en';
+  $phone = system_setting('telephone');
+  $email = system_setting('email');
+
+  // 6 大导航（硬编码，中英双语）
+  $navMenus = [
+    [
+      'code' => 'solutions',
+      'name_zh' => '解决方案', 'name_en' => 'Solutions',
+      'children' => [
+        ['name_zh' => '半导体与功率电子', 'name_en' => 'Semiconductor & Power Electronics', 'url' => '/solutions/semiconductor'],
+        ['name_zh' => '新能源与电力',     'name_en' => 'New Energy & Power',                'url' => '/solutions/new-energy'],
+        ['name_zh' => '连接器与继电器',   'name_en' => 'Connectors & Relays',               'url' => '/solutions/connectors'],
+        ['name_zh' => '散热与消费电子',   'name_en' => 'Thermal & Consumer Electronics',    'url' => '/solutions/thermal'],
+      ],
+    ],
+    [
+      'code' => 'products',
+      'name_zh' => '铜材产品', 'name_en' => 'Products',
+      'children' => [
+        ['name_zh' => '精密异型铜卷/带材', 'name_en' => 'Precision Shaped Copper Coil & Strip', 'url' => '/products/precision-strip'],
+        ['name_zh' => '定制异形铜排',     'name_en' => 'Custom Shaped Copper Busbar',          'url' => '/products/custom-busbar'],
+      ],
+    ],
+    [
+      'code' => 'tech',
+      'name_zh' => '生产技术', 'name_en' => 'Technology',
+      'children' => [
+        ['name_zh' => '精密冷轧制',     'name_en' => 'Precision Cold Rolling',     'url' => '/tech/cold-rolling'],
+        ['name_zh' => '无应力力切',     'name_en' => 'Stress-Free Slitting',       'url' => '/tech/slitting'],
+        ['name_zh' => '渐进式控轧',     'name_en' => 'Progressive Controlled Rolling','url' => '/tech/progressive-rolling'],
+        ['name_zh' => '工程设计与优化', 'name_en' => 'Engineering Design & Optimization','url' => '/tech/engineering'],
+        ['name_zh' => '质量保证',       'name_en' => 'Quality Assurance',          'url' => '/tech/quality'],
+      ],
+    ],
+    [
+      'code' => 'about',
+      'name_zh' => '关于我们', 'name_en' => 'About',
+      'children' => [
+        ['name_zh' => '公司简介',     'name_en' => 'Company Profile',     'url' => '/about'],
+        ['name_zh' => '发展历程',     'name_en' => 'Our Journey',         'url' => '/about/journey'],
+        ['name_zh' => '制造能力',     'name_en' => 'Manufacturing',      'url' => '/about/manufacturing'],
+        ['name_zh' => '资质与认证',   'name_en' => 'Certifications',      'url' => '/about/certifications'],
+        ['name_zh' => '选择双张',     'name_en' => 'Why Shunchung',       'url' => '/about/why'],
+      ],
+    ],
+    [
+      'code' => 'resources',
+      'name_zh' => '资源中心', 'name_en' => 'Resources',
+      'children' => [
+        ['name_zh' => '技术资料', 'name_en' => 'Technical Docs',  'url' => '/resources/technical'],
+        ['name_zh' => '应用案例', 'name_en' => 'Case Studies',    'url' => '/resources/cases'],
+        ['name_zh' => '行业资讯', 'name_en' => 'Industry News',   'url' => '/resources/news'],
+      ],
+    ],
+    [
+      'code' => 'contact',
+      'name_zh' => '联系我们', 'name_en' => 'Contact',
+      'children' => [
+        ['name_zh' => '获取报价', 'name_en' => 'Request Quote',  'url' => $contactUrl ?: '/contacts'],
+        ['name_zh' => '提交图纸', 'name_en' => 'Submit Drawing', 'url' => $contactUrl ?: '/contacts'],
+        ['name_zh' => '联系方式', 'name_en' => 'Contact Info',   'url' => $contactUrl ?: '/contacts'],
+      ],
+    ],
+  ];
+@endphp
+
+<div class="site-header shunchung-header">
+  {{-- 顶栏（深色 + 联系方式 + 语言） --}}
+  <div class="header-topbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="topbar-left">
+        @if($phone)
+          <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}"><i class="bi bi-telephone-fill"></i> {{ $phone }}</a>
+        @endif
+        @if($email)
+          <a href="mailto:{{ $email }}" class="ms-4"><i class="bi bi-envelope-fill"></i> {{ $email }}</a>
+        @endif
+      </div>
+      <div class="topbar-right">
+        @if($allLocales->count() > 1)
+          <div class="topbar-lang dropdown">
+            <button type="button" class="topbar-lang__btn" data-bs-toggle="dropdown" aria-expanded="false">
+              @if($currentLocale?->image)
+                <img class="topbar-lang__flag" src="{{ image_origin($currentLocale->image) }}" alt="">
+              @endif
+              <span>{{ $currentLocaleName }}</span>
+              <i class="bi bi-chevron-down topbar-lang__caret" aria-hidden="true"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end topbar-lang__menu">
+              @foreach($allLocales as $locale)
+                <li>
+                  <a class="dropdown-item topbar-lang__item {{ $locale->code === $currentLocaleCode ? 'is-active' : '' }}"
+                     href="{{ front_route('locales.switch', ['code' => $locale->code]) }}">
+                    @if($locale->image)
+                      <img class="topbar-lang__flag" src="{{ image_origin($locale->image) }}" alt="">
+                    @endif
+                    <span>{{ $locale->name }}</span>
+                  </a>
+                </li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+      </div>
+    </div>
+  </div>
+
+  {{-- 主导航（白底 + 红橙渐变 logo + 6 大菜单） --}}
+  <div class="header-box">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="logo shunchung-logo">
+        <a href="{{ front_route('home.index') }}" class="shunchung-logo__link">
+          <img src="{{ image_origin(system_setting('front_logo', 'images/shunchung-logo.svg')) }}" class="shunchung-logo__img" alt="Shunchung">
+        </a>
+      </div>
+
+      <div class="header-menu d-flex align-items-center">
+        <nav class="navbar navbar-expand-md navbar-light">
+          <ul class="navbar-nav shunchung-nav">
+            @foreach($navMenus as $menu)
+              <li class="nav-item has-mega">
+                <a class="nav-link" href="javascript:void(0)" aria-haspopup="true" aria-expanded="false">
+                  {{ $isEn ? $menu['name_en'] : $menu['name_zh'] }}
+                  @if(count($menu['children']) > 0)
+                    <i class="bi bi-chevron-down has-mega__caret" aria-hidden="true"></i>
+                  @endif
+                </a>
+                <ul class="mega-panel">
+                  @foreach($menu['children'] as $child)
+                    <li>
+                      <a class="mega-panel__item" href="{{ $child['url'] }}">
+                        {{ $isEn ? $child['name_en'] : $child['name_zh'] }}
+                      </a>
+                    </li>
+                  @endforeach
+                </ul>
+              </li>
+            @endforeach
+          </ul>
+        </nav>
+
+        @if($contactUrl)
+          <a href="{{ $contactUrl }}" class="btn btn-accent d-none d-lg-inline-flex align-items-center ms-3">
+            <i class="bi bi-send-fill me-1"></i>
+            {{ $isEn ? 'GET QUOTE' : '获取报价' }}
+          </a>
+        @endif
+
+        {{-- 移动端菜单（同样 6 大） --}}
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="mobile-menu-offcanvas">
+          <div class="offcanvas-header">
+            <div class="mb-logo shunchung-logo">
+              <img src="{{ image_origin(system_setting('front_logo', 'images/shunchung-logo.svg')) }}" class="shunchung-logo__img" alt="Shunchung">
+            </div>
+          </div>
+          <div class="close-offcanvas" data-bs-dismiss="offcanvas"><i class="bi bi-chevron-compact-left"></i></div>
+          <ul class="navbar-nav">
+            @foreach($navMenus as $menu)
+              <li class="nav-item has-children">
+                <a class="nav-link" href="javascript:void(0)">
+                  {{ $isEn ? $menu['name_en'] : $menu['name_zh'] }}
+                </a>
+                <ul class="sub-menu">
+                  @foreach($menu['children'] as $child)
+                    <li><a class="nav-link" href="{{ $child['url'] }}">{{ $isEn ? $child['name_en'] : $child['name_zh'] }}</a></li>
+                  @endforeach
+                </ul>
+              </li>
+            @endforeach
+            @if($contactUrl)
+              <li class="nav-item p-3">
+                <a href="{{ $contactUrl }}" class="btn btn-accent w-100">
+                  {{ $isEn ? 'GET QUOTE' : '获取报价' }}
+                </a>
+              </li>
+            @endif
+          </ul>
+        </div>
+        <div class="mb-icon" data-bs-toggle="offcanvas" data-bs-target="#mobile-menu-offcanvas"
+             aria-controls="mobile-menu-offcanvas"><i class="bi bi-list"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
